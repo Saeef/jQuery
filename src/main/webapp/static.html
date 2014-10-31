@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>static.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    // 构造函数
+	var Gadget = function () {
+	};
+	
+	// 公有静态方法
+	Gadget.isShiny = function () {
+	    return "you bet";
+	};
+	
+	// 原型上添加的正常方法
+	Gadget.prototype.setPrice = function (price) {
+	    this.price = price;
+	};
+	
+	// 调用静态方法
+	console.log(Gadget.isShiny()); // "you bet"
+	
+	// 创建实例，然后调用方法
+	var iphone = new Gadget();
+	iphone.setPrice(500);
+	
+	console.log(typeof Gadget.setPrice); // "undefined"
+	console.log(typeof iphone.isShiny); // "undefined"
+	Gadget.prototype.isShiny = Gadget.isShiny;
+	console.log(iphone.isShiny()); // "you bet"
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

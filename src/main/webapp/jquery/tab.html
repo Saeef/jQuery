@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <title>My JSP 'option.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<style type="text/css">
+	ul,li {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.tab{
+		border:1px solid blue;
+		width:500px;
+		height:200px;
+	}
+	div.tab_menu{
+		height:40px;
+		position:relative;
+	}
+	div.tab_menu ul{
+		position:absolute;
+		bottom:-0.1px;
+		left:50px;
+		height:40px;
+		width:200px;
+	}
+	div.tab_menu ul li{
+		float:left;
+		line-height:30px;
+		letter-spacing:4px;
+		padding:0 4px 0 4px;
+		text-align:center;
+		margin-top:10px;
+		cursor: pointer;
+	}
+	.tab_box{
+		border:1px solid #000000;
+		height:150px;
+		width:400px;
+		margin:0 50px 10px 50px;
+		background:#EEE;
+	}
+	.selected{
+		background:#EEE;
+		border:1px solid #000000;
+		border-bottom:none;
+	}
+</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("div.tab_box>div").eq(0).show().siblings().hide();		
+		$("div.tab_menu ul li").click(function()
+		{
+			$(this).addClass("selected").siblings().removeClass("selected");
+			
+			var index = $("div.tab_menu ul li").index(this);
+			
+			$("div.tab_box>div").eq(index).show().siblings().hide();		
+			
+		});
+	});
+	</script>
+  </head>
+  
+  <body>
+  	<div class="tab">
+  		<div class="tab_menu" >
+  			<ul>
+  				<li class="selected">时事</li>
+  				<li>体育</li>
+  				<li>娱乐</li>
+  			</ul>
+  		</div>
+  		<div class="tab_box" >
+  				<div>时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事时事</div>
+  				<div>体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育体育</div>
+  				<div>娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐娱乐</div>
+  		</div>
+  	</div>
+  </body>
+</html>

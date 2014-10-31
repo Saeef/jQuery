@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>datepickerl.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script src="../jquery-ui-1.10.4.custom/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+    <script src="../jquery-ui-1.10.4.custom/development-bundle/ui/i18n/jquery.ui.datepicker-zh-CN.js" type="text/javascript"></script>
+	<link   href="../jquery-ui-1.10.4.custom/css/flick/jquery-ui-1.10.4.custom.css"  rel="stylesheet" type="text/css" >
+	
+	<style type="text/css">
+	body{
+		font: 80% "arial", sans-serif;
+		margin: 50px;
+	}
+	div.panel{
+		border:1px solid #000;
+		width:300px;
+		height:200px;
+		float:left;
+		margin:10px 10px;
+		background-color: #fff;
+	}
+	img.ui-datepicker-trigger{
+		position: relative;
+		top:6px;
+		left:-18px;
+	}
+	</style>
+	<script type="text/javascript">
+		$(function(){
+			$("div.panel :input:eq(0)").datepicker();
+			$("div.panel :input:eq(1)").datepicker({
+				showButtonPanel: true,
+				showOtherMonths:true,//如果设置为true，当月中没有使用的单元格会显示填充，但无法使用。默认为false，会隐藏无法使用的单元格
+				selectOtherMonths:true,//如果设置为true，表示可以选择上个月或下个月的日期。前提是showOtherMonths设置为true。
+				numberOfMonths:3//日历中同时显示的月份个数。默认为1，如果设置3 就同时显示3 个月份。也可以设置数组：[3,2]，3 行2 列共6 个
+			});
+			$("div.panel :input:eq(2)").datepicker({
+				numberOfMonths:[3,2]//日历中同时显示的月份个数。默认为1，如果设置3 就同时显示3 个月份。也可以设置数组：[3,2]，3 行2 列共6 个
+			});
+			$("div.panel :input:eq(3)").datepicker({
+				changeYear:true,
+				changeMonth:true,
+				showOn: "button",
+				buttonImage: "../images/datePicker.gif",
+				buttonImageOnly: true,
+				showButtonPanel: true
+			});
+			$("div.panel :input:eq(4)").datepicker({
+				changeYear:true,
+				changeMonth:true,
+				showOn: "button",
+				buttonText:"显示",
+				showButtonPanel: true,
+				onClose : function (dateText,inst) {
+					for(var v in inst)
+					{
+						alert(v+":"+inst[v]);
+					}
+				}
+			});
+			$( "#datepicker" ).datepicker();
+		});
+	</script>
+  </head>
+  
+  <body>
+    <div id="panel1" class="panel">
+    	日期：<input type="text">
+  	</div>
+  	<div id="panel2" class="panel">
+  		日期：<input type="text">
+  	</div>
+  	<div id="panel3" class="panel">
+  		日期：<input type="text">
+  	</div>
+  	<div id="panel4" class="panel">
+  		日期：<input type="text">
+  	</div>
+  	<div id="panel5" class="panel">
+  		日期：<input type="text">
+  	</div>
+  	<div id="panel6" class="panel">
+  		<div id="datepicker"  style="border:1px solid red"></div>
+  	</div>
+  </body>
+</html>

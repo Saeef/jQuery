@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>autocomplete.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="../jquery-ui-1.10.4.custom/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+	<link   href="../jquery-ui-1.10.4.custom/css/flick/jquery-ui-1.10.4.custom.css"  rel="stylesheet" type="text/css" >
+	<style type="text/css">
+		body {
+			font-size: 62.5%;
+			font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif";
+		}
+	</style>
+	<script type="text/javascript">
+	$(function() {
+		var availableTags = [
+			"ActionScript","AppleScript","Asp","BASIC",
+			"C","C++","Clojure","COBOL",
+			"ColdFusion","Erlang","Fortran","Groovy",
+			"Haskell","Java","JavaScript","Lisp",
+			"Perl","PHP","Python","Ruby","Scala","Scheme"
+		];
+		$( "#tags" ).autocomplete({
+			source: availableTags,
+			/* minLength:2 */ //默认为1，触发补全列表最少输入字符数
+			/* delay:0 */        //默认为300 毫秒，延迟显示设置
+			/* autoFocus:true */ //设置为true 时，第一个项目会自动被选定
+			focus:function(event, ui){
+				$("#msg").empty().html("<font color='red'>"+ui.item.value+"</font>");
+			},
+			select:function(event, ui){
+				$("#msg").empty().html("<font color='green'>"+ui.item.value+"</font>");
+			},
+			response:function(event, ui){
+			$("#msg").empty();
+				$.each(ui.content, function(i, v){
+ 					$("#msg").append("<font color='#000'>"+v.value+"|"+v.label+"</font>,");
+				});
+			},
+		});
+		//**********************************************************************************
+		var names = [ "Jörn Zaefferer", "Scott González", "John Resig" ];
+		var accentMap = {"á": "a","ö": "o"};
+		var normalize = function( term ) {
+			var ret = "";
+			for ( var i = 0; i < term.length; i++ ) {
+				ret += accentMap[ term.charAt(i) ] || term.charAt(i);
+			}
+			return ret;
+		};
+
+		$( "#developer" ).autocomplete({
+			source: function( request, response ) {
+				var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
+				response( $.grep( names, function( value ) {
+					value = value.label || value.value || value;
+					return matcher.test( value ) || matcher.test( normalize( value ) );
+				}) );
+			}
+		});
+		//**********************************************************************************
+		function split( val ) {
+			return val.split( /,\s*/ );
+		}
+		function extractLast( term ) {
+			return split( term ).pop();
+		}
+
+		$( "#languages" ).bind( "keydown", function( event ) {
+			if ( event.keyCode === $.ui.keyCode.TAB &&$( this ).data( "ui-autocomplete" ).menu.active ) 
+			{
+				event.preventDefault();
+			}
+		}).autocomplete({
+			minLength: 0,
+			source: function( request, response ) 
+			{
+				response( $.ui.autocomplete.filter(availableTags, extractLast( request.term ) ) );
+			},
+			focus: function() 
+			{
+				return false;
+			},
+			select: function( event, ui ) 
+			{
+				var terms = split( this.value );
+				terms.pop();
+				terms.push( ui.item.value );
+				terms.push( "" );
+				this.value = terms.join( ", " );
+				return false;
+			}
+		});
+		$('#email').autocomplete({
+			autoFocus : true,
+			delay : 0,
+			source : function (request, response) {
+				var hosts = ['qq.com','163.com', '263.com', 'gmail.com', 'hotmail.com'], //起始
+						term = request.term, //获取输入值
+						ix = term.indexOf('@'), //@
+						name = term, //用户名
+						host = '', //域名
+						result = []; //结果
+						
+				//结果第一条是自己输入
+				result.push(term);
+				
+				//如果有@的时候
+				if (ix > -1)  
+				{
+					name = term.slice(0, ix); //得到用户名
+					host = term.slice(ix + 1); //得到域名
+				}
+				if (name) 
+				{
+					//得到找到的域名
+					var findedHosts = (host ? $.grep(hosts, function (value, index) {
+								return value.indexOf(host) > -1;
+					}) : hosts),
+					//最终列表的邮箱
+					findedResults = $.map(findedHosts, function (value, index) {
+								return name + '@' + value;
+					});
+					//增加一个自我输入
+					result = result.concat(findedResults);
+				}
+				response(result);
+			},
+		});
+	});
+	</script>
+  </head>
+  
+  <body>
+  	<div id="msg" style="height:20px;width:800px;border:1px solid blue;"></div>
+    <form id="region" method="post">
+    	<p><label for="tags">Tags: </label><input id="tags"></p>
+    	<p><label for="developer">Developer: </label><input id="developer"></p>
+    	<p><label for="languages">Tag programming languages: </label><input id="languages" size="50"></p>
+    	<p><label for="email">email: </label><input id="email"></p>
+    </form>
+  </body>
+</html>

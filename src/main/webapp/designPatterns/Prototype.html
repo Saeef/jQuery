@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prototype.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    // 因为不是构造函数，所以不用大写
+	var someCar = {
+	    drive: function () { },
+	    name: '马自达 3'
+	};
+	
+	// 使用Object.create创建一个新车x
+	var anotherCar = Object.create(someCar);
+	anotherCar.name = '丰田佳美';
+	
+	var vehicle = {
+	    getModel: function () {
+	        console.log('车辆的模具是：' + this.model);
+	    }
+	};
+	var car = Object.create(vehicle, {
+	    'id': {
+	        value: MY_GLOBAL.nextId(),
+	        enumerable: true // 默认writable:false, configurable:false
+	 },
+	    'model': {
+	        value: '福特',
+	        enumerable: true
+	    }
+	});
+	
+	var vehiclePrototype = {
+	    init: function (carModel) {
+	        this.model = carModel;
+	    },
+	    getModel: function () {
+	        console.log('车辆模具是：' + this.model);
+	    }
+	};
+	function vehicle(model) {
+	    function F() { };
+	    F.prototype = vehiclePrototype;
+	
+	    var f = new F();
+	
+	    f.init(model);
+	    return f;
+	}
+	var car = vehicle('福特Escort');
+	car.getModel();
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

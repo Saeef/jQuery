@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>constructor.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    function Car1(model, year, miles) {
+	    this.model = model;
+	    this.year = year;
+	    this.miles = miles;
+	    this.output= function () {
+	        return this.model + "走了" + this.miles + "公里";
+	    };
+	}
+	var tom1= new Car1("大叔", 2009, 20000);
+	var dudu1= new Car1("Dudu", 2010, 5000);
+	document.write("<p style='color:red'>"+tom1.output()+"</p>"); 
+	document.write("<p style='color:red'>"+dudu1.output()+"</p>"); 
+	
+	
+	//output()在每次创建对象的时候都重新定义了，最好的方法是让所有Car类型的实例都共享这个output()方法，
+	//这样如果有大批量的实例的话，就会节约很多内存。
+	function Car2(model, year, miles) {
+	    this.model = model;
+	    this.year = year;
+	    this.miles = miles;
+	    this.output= formatCar;
+	}
+	function formatCar() {
+	    return this.model + "走了" + this.miles + "公里";
+	}
+	var tom2= new Car2("大叔", 2009, 20000);
+	var dudu2= new Car2("Dudu", 2010, 5000);
+	document.write("<p style='color:blue'>"+tom2.output()+"</p>"); 
+	document.write("<p style='color:blue'>"+dudu2.output()+"</p>"); 
+	
+	function Car3(model, year, miles) {
+	    this.model = model;
+	    this.year = year;
+	    this.miles = miles;
+	}
+	Car3.prototype.output= function () {
+	    return this.model + "走了" + this.miles + "公里";
+	};
+	var tom3 = new Car3("大叔", 2009, 20000);
+	var dudu3 = new Car3("Dudu", 2010, 5000);
+	document.write("<p style='color:green'>"+tom3.output()+"</p>"); 
+	document.write("<p style='color:green'>"+dudu3.output()+"</p>"); 
+	
+	
+	function Car4(model, year, miles) {
+	    this.model = model;
+	    this.year = year;
+	    this.miles = miles;
+	    // 自定义一个output输出内容
+	    this.output = function () {
+	        return this.model + "走了" + this.miles + "公里";
+	    };
+	}
+	//方法1：作为函数调用
+	Car4("大叔", 2009, 20000);  //添加到window对象上
+	console.log(window.output());
+	//方法2：在另外一个对象的作用域内调用
+	var o = new Object();
+	Car4.call(o, "Dudu", 2010, 5000);
+	document.write("<p style='color:blue'>"+o.output()+"</p>"); 
+	
+	
+	function Car5(model, year, miles) {
+	    if (!(this instanceof Car5)) {
+	        return new Car5(model, year, miles);
+	    }
+	    this.model = model;
+	    this.year = year;
+	    this.miles = miles;
+	    this.output = function () {
+	        return this.model + "走了" + this.miles + "公里";
+	    };
+	}
+	var tom5 = new Car5("大叔", 2009, 20000);
+	var dudu5 = Car5("Dudu", 2010, 5000);
+	console.log(typeof tom5); // "object"
+	console.log(typeof dudu5); // "object"
+	document.write("<p style='color:orange'>"+tom5.output()+"</p>"); 
+	document.write("<p style='color:orange'>"+dudu5.output()+"</p>"); 
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

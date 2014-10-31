@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>表单</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.3.2/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.3.2/themes/default/easyui.css">
+	<script type="text/javascript" src="../js/jquery-1.5.2.js"></script>   
+    <script type="text/javascript" src="../jquery-easyui-1.3.2/jquery.easyui.min.js" ></script>
+    <script type="text/javascript" src="../jquery-easyui-1.3.2/locale/easyui-lang-zh_CN.js" ></script>
+    <style type="text/css">
+		.main {
+			position: relative;
+			margin:0 auto;
+			width:1000px;
+			height:1000px;
+			border:1px solid red;
+		}
+		
+		dl,dd {
+			padding: 0;
+			margin: 0;
+		}
+		
+		dl.show {
+			width: 450px;
+			/* height: 350px; */
+			margin: 10px 0px 10px 20px;
+			float: left;
+			font-size: 14px;
+			color: #666;
+		}
+		
+		dl.show dd {
+			position: relative;
+			height: 30px;
+			padding: 2px 0;
+			margin-top: 5px;
+		}
+		
+		dl.show dd.dd1 {
+			margin-top: 30px;
+		}
+		
+		dl.show dd.dd2 {
+			margin-top: 68px;
+		}
+		
+		dl.show dd div.pos {
+			position: absolute;
+			left: 120px;
+			top:0px;
+		}
+		
+		input.text {
+			width: 30px;
+		}
+		label.error {    
+			color: red;    
+			position: absolute;
+			left: 300px;  
+		}   
+		div.button {
+			position: absolute;
+			top:650px;
+			left:300px;
+		}
+		div.button .submit
+		{
+			margin:0 auto;
+		}
+	</style>   
+	<script type="text/javascript">
+	$(function(){
+		$.extend($.fn.validatebox.defaults.rules, {
+		    IP: {
+		        validator: function(value){
+		            return /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(value);
+		    	},
+	        message: '输入内容必须为IP地址类型'
+	    	},
+	    	minLength: {
+        		validator: function(value, param){
+            		return value.length >= param[0];
+        		},
+       		 	message: '输入内容长度至少为{0}个字符'
+    		},
+    		equals: {
+	        	validator: function(value,param){
+	            	return value == $(param[0]).val();//0代表第一个参数
+	        	},
+	        	message: '不一致'
+    		}
+		});
+		$(":input[name=birthplace]").combobox({
+			url:"data.json",
+			valueField:"id",
+    		textField:"text"
+		});
+	});
+	</script>
+    
+  </head>
+  
+  <body>
+    <div class="main">
+		<form action="http://www.baidu.com" id="register">
+			<dl id="dl1" class="show">
+				<dd>
+					管理员用户名:<div class="pos"><input class="easyui-validatebox"  data-options="required:true,validType:'minLength[6]'" type="text"   name="MName" /></div>
+				</dd>
+				<dd>
+					最近登录IP:<div class="pos"><input class="easyui-validatebox"  data-options="required:true,validType:'IP'"  type="text"  name="MLoginip" /></div>
+				</dd>
+				<dd class="dd1">
+					用户姓名:<div class="pos"><input class="easyui-validatebox"  data-options="required:true,validType:'length[0,10]'" type="text"  name="name" /></div>
+				</dd>
+				<dd>
+					出生年月:<div class="pos"><input class="easyui-datebox"  type="text"  name="birthday" /></div>
+				</dd>
+				<dd>
+					联系方式1:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="telephone1" /></div>
+				</dd>
+				<dd class="dd1">
+					组织名称:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="OName" /></div>
+				</dd>
+				<dd>
+					组织联系地址:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="OAddress" /></div>
+				</dd>
+				<dd>
+					创建时间:<div class="pos"><input class="easyui-datetimebox"   type="text"  name="MCreattime" /></div>
+				</dd>
+				<dd>
+					管理员备注:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="remark" /></div>
+				</dd>
+				<dd class="dd1">
+					用户年龄:<div class="pos"><input class="easyui-numberbox"  data-options="required:true" type="text"  name="age" /></div>
+				</dd>
+				<dd>
+					联系地址:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="address" /></div>
+				</dd>
+				<dd>
+					邮箱地址:<div class="pos"><input class="easyui-validatebox"  data-options="required:true,validType:'email'" type="text"  name="email "  class="required email" /></div>
+				</dd>
+				<dd class="dd1">
+					籍贯:<div class="pos"><input   type="text"  name="birthplace" /></div>
+				</dd>
+			</dl>
+
+			<dl id="dl2" class="show">
+				<dd>
+					上级管理员:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="MName" /></div>
+				</dd>
+				<dd>
+					登录次数:<div class="pos"><input class="easyui-numberbox"  data-options="required:true" type="text"  name="MLogincount" /></div>
+				</dd>
+				<dd class="dd1">
+					用户性别: <div class="pos"><input type="radio" name="sex" value="male" checked="checked" />男 
+															<input type="radio" name="sex" value="female"  />女 </div>
+				</dd>
+				<dd>
+					政治背景:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="political" /></div>
+				</dd>
+				<dd>
+					联系方式2:<div class="pos"><input class="easyui-validatebox"  data-options="required:true"  validType="equals[':input[name=telephone]']"  type="text"  name="telephone2" /></div>
+				</dd>
+				<dd class="dd1">
+					组织联系人:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="OContact"/></div>
+				</dd>
+				<dd>
+					组织备注:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="remark" /></div>
+				</dd>
+				<dd>
+					最近登录时间:<div class="pos"><input class="easyui-datetimebox"  type="text"  name="MLogintime" /></div>
+				</dd>
+				<dd class="dd2">
+					用户身份证号:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="card" /></div>
+				</dd>
+				<dd>
+					用户QQ:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="qqaccount" /></div>
+				</dd>
+				<dd>
+					用户备注:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="remark" /></div>
+				</dd>
+				<dd class="dd1">
+					组织联系方式2:<div class="pos"><input class="easyui-validatebox"  data-options="required:true" type="text"  name="OTelephome2" /></div>
+				</dd>
+			</dl>
+			<div class="button"><input type="submit" class="submit" value="提交" /></div>
+		</form>
+	</div>
+  </body>
+</html>

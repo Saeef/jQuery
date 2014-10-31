@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <title>My JSP 'option.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<style type="text/css">
+	div.main,div.msg{
+		float:left;
+		border:1px solid #000;
+		width:200px;
+		height:200px;
+		margin:10px;
+	}
+	div.main span{
+		display:block;
+		margin:10px;
+		cursor:pointer;
+		background-color: #919191;
+		color:white;
+	}
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("#main1 span").click(function(){
+			var $txt = $("#msg1").html()+"<p style='color:#76EEC6'>内层span元素被单击</p>";
+			$("#msg1").html($txt);
+		});
+		$("#main1").click(function(){
+			var $txt = $("#msg1").html()+"<p style='color:#00FA9A'>外层div元素被单击</p>";
+			$("#msg1").html($txt);
+		});
+		$("body").click(function(){
+			var $txt = $("#msg1").html()+"<p style='color:#CD6889'>body元素被单击</p>";
+			$("#msg1").html($txt);
+		});
+		
+		
+		$("#main2 span").click(function(event){
+			var $txt = $("#msg2").html()+"<p style='color:#76EEC6'>内层span元素被单击</p>";
+			$("#msg2").html($txt);
+			event.stopPropagation();//阻止事件冒泡
+		});
+		$("#main2").click(function(){
+			var $txt = $("#msg2").html()+"<p style='color:#00FA9A'>外层div元素被单击</p>";
+			$("#msg2").html($txt);
+		});
+		$("body").click(function(){
+			var $txt = $("#msg2").html()+"<p style='color:#CD6889'>body元素被单击</p>";
+			$("#msg2").html($txt);
+		});
+		
+		//event.type
+		$("a").click(function(event){
+			alert(event.type);//获取事件类型
+			return false;//阻止链接跳转   event.preventDefault();阻止默认行为
+		});
+		//event.target
+		$("a").click(function(event){
+			alert(event.target.href);//获取触发事件的href属性值
+			return false;//阻止链接跳转
+		});
+		//event.pageX
+		$("a").click(function(event){
+			alert(event.pageX+","+event.pageY);//获取鼠标相对于页面的坐标
+			return false;//阻止链接跳转
+		});
+		//event.which
+		$("body").mousedown(function(event){
+			alert(event.which);//1 左键 2 中建 3 右键
+			return false;//阻止链接跳转
+		});
+		
+		$("#btn").bind("click",function(){
+			$("test").append("<p>我的绑定函数1</p>");
+		}).bind("click",function(){
+			$("test").append("<p>我的绑定函数2</p>");
+		}).bind("click",function(){
+			$("test").append("<p>我的绑定函数3</p>");
+		}).bind("click",function(){
+			$("test").append("<p>我的绑定函数4</p>");
+		});
+		//移除所有事件
+		$("#delAll").click(function(){
+			$("btn").unbind("click");//$("btn").unbind()
+		});
+		
+		$("#btn").bind("click",fun1 = function(){
+			$("test").append("<p>我的绑定函数1</p>");
+		}).bind("click",fun2 =function(){
+			$("test").append("<p>我的绑定函数2</p>");
+		}).bind("click",fun3 =function(){
+			$("test").append("<p>我的绑定函数3</p>");
+		}).bind("click",fun4 =function(){
+			$("test").append("<p>我的绑定函数4</p>");
+		});
+		//移除指定
+		$("#delAll").click(function(){
+			$("btn").unbind("click",fun2);//$("btn").unbind()
+		});
+		
+		$("input").trigger("focus");//不光执行focus 还会<input>元素本身得到焦点
+		$("input").triggerHandler("focus");//不执行浏览器默认操作
+	});
+	</script>
+  </head>
+  
+  <body>
+  	<div id="main1" class="main">
+  		外层div元素【事件冒泡】
+  		<span>内层span元素</span>
+  		外层div元素【事件冒泡】
+  	</div>
+  	<div id="msg1"  class="msg"></div>
+  	
+  	<div id="main2" class="main">
+  		外层div元素【停止事件冒泡】
+  		<span>内层span元素</span>
+  		外层div元素【停止事件冒泡】
+  	</div>
+  	<div id="msg2"  class="msg"></div>
+  	
+  </body>
+</html>

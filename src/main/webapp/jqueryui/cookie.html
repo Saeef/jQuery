@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cookie.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript" src="../js/jquery-1.5.2.js"></script>
+    <script type="text/javascript" src="../js/jquery.cookie-1.4.0.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		
+			$(":submit").click(function(){
+				$.cookie("username", $(":input[name=username]").val(),{
+					expires : 7, //过期时间，7 天后
+					path : '/' //设置路径，上一层
+				});
+				$.cookie("password", $(":input[name=password]").val());
+			});
+			if($.cookie("username"))
+			{
+				$(":input[name=username]").val($.cookie("username"));
+				$(":input[name=password]").val($.cookie("password"));
+			}
+			$(":button").click(function(){
+				$(":input[name=username]").val("");
+				$(":input[name=password]").val("");
+				$.removeCookie("username",{path:"/"});
+				$.removeCookie("password");
+			});
+    	});
+    </script>
+
+  </head>
+  
+  <body>
+	   <form action="">
+	   	<fieldset id="login" style="width:600px; border:1px solid #000;">   
+	            <legend style="">用户登录</legend>   
+	            <p align="center">
+	            	<label for="username">账号：</label>
+	            	<input type="text" name="username" />
+	            </p>   
+	            <p align="center">
+	            	<label for="username">密码：</label>
+	            	<input type="password" name="password"/>
+	            </p>   
+	            <p align="center">
+	            	<input type="submit"  value="登录" />
+	            	<input type="button"  value="注销" />
+	            </p>   
+	        </fieldset> 
+	   </form>
+  </body>
+</html>

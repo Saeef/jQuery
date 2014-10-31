@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>factory.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    var Car = (function () {
+	    var Car = function (model, year, miles) {
+	        this.model = model;
+	        this.year = year;
+	        this.miles = miles;
+	    };
+	    return function (model, year, miles) {
+	        return new Car(model, year, miles);
+	    };
+	})();
+	var tom = new Car("Tom", 2009, 20000);
+	var dudu = new Car("Dudu", 2010, 5000);
+	
+	
+	
+	var productManager = {};
+	productManager.createProductA = function () {
+	    console.log('ProductA');
+	};
+	productManager.createProductB = function () {
+	    console.log('ProductB');
+	};
+	productManager.factory = function (typeType) {
+	    return new productManager[typeType];
+	};
+	productManager.factory("createProductA");
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

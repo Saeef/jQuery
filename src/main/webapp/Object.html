@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>study Object</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    document.writeln("********************************constructor**********************************");
+    var obj = {};
+    /*
+	 *function Object() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>obj.constructor:</font>"+obj.constructor+"</p>");
+    function Base(){this.name = 'dream';this.say = function(){};};
+    //function
+	document.write("<p style='color:blue'>"+
+	typeof (Base.constructor)+"</p>");
+	/*
+	 *function Function() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>Base.constructor:</font>"+Base.constructor+"</p>");
+	//function Base(){}
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>new  Base().constructor:</font>"+new  Base().constructor+"</p>");
+	/*
+	 *function Function() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>Function.constructor:</font>"+Function.constructor+"</p>");
+	/*
+	 *function Function() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>new Function().constructor:</font>"+new Function().constructor+"</p>");
+	/*
+	 *function Function() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>Object.constructor:</font>"+Object.constructor+"</p>");
+	/*
+	 *function Object() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>new Object().constructor:</font>"+new Object().constructor+"</p>");
+	/*
+	 *function Function() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>Date.constructor:</font>"+Date.constructor+"</p>");
+	/*
+	 *function Date() {
+	 * 	[native code]
+	 *}
+	 */
+	document.write("<p style='color:blue'>"+
+	"<font style='color:red'>new  Date().constructor:</font>"+new  Date().constructor+"</p>");
+	
+	
+	
+	
+	document.writeln("********************************toString**********************************");
+	document.writeln("<p style='color:blue'>"+new Array(10,"ABCD").toString()+"</p>");
+	document.writeln("<p style='color:blue'>"+new Date().toString()+"</p>");
+	document.writeln("********************************toLocalString**********************************");
+	document.writeln("<p style='color:blue'>"+new Date().toLocaleString()+"</p>");
+	document.writeln("********************************valueOf**********************************");
+	document.writeln("<p style='color:blue'>"+new Date().valueOf()+"</p>");
+	document.writeln("<p style='color:blue'>"+new Object().valueOf()+"</p>");
+	document.writeln("********************************hasOwnProperty**********************************");
+	//实例里有返回true，否则返回false
+	document.writeln("<p style='color:blue'>"+new Base().hasOwnProperty("name")+"</p>");//true
+	document.writeln("<p style='color:blue'>"+new Base().hasOwnProperty("say")+"</p>");//true
+	document.writeln("<p style='color:blue'>"+Base.prototype.hasOwnProperty("name")+"</p>");//false
+	document.writeln("<p style='color:blue'>"+Base.prototype.hasOwnProperty("say")+"</p>");//false
+	Base.prototype.age = 24;
+	Base.prototype.sing = function(){};
+	document.writeln("<p style='color:red'>"+new Base().hasOwnProperty("age")+"</p>");//false
+	document.writeln("<p style='color:red'>"+new Base().hasOwnProperty("sing")+"</p>");//false
+	document.writeln("<p style='color:red'>"+Base.prototype.hasOwnProperty("age")+"</p>");//true
+	document.writeln("<p style='color:red'>"+Base.prototype.hasOwnProperty("sing")+"</p>");//true
+	document.writeln("********************************propertyIsEnumerable **********************************");
+	//是否可以枚举
+	document.writeln("<p style='color:blue'>"+new Base().propertyIsEnumerable("name")+"</p>");
+	document.writeln("<p style='color:blue'>"+new Base().propertyIsEnumerable("say")+"</p>");
+	document.writeln("<p style='color:blue'>"+new Base().propertyIsEnumerable("age")+"</p>");
+	document.writeln("<p style='color:blue'>"+new Base().propertyIsEnumerable("sing")+"</p>");
+	document.writeln("********************************isPrototypeOf **********************************");
+	//判断一个对象是否指向了该构造函数的原型对象,从右向左说
+	document.writeln("<p style='color:blue'>"+Base.prototype.isPrototypeOf(new Base())+"</p>");
+	document.writeln("<p style='color:blue'>"+Function.prototype.isPrototypeOf(Base)+"</p>");
+	
+	document.writeln("<p style='color:red'>"+undefined+"</p>");
+	document.writeln("<p style='color:red'>"+NaN+"</p>");
+	document.writeln("<p style='color:red'>"+Infinity+"</p>");
+	document.writeln("<p style='color:red'>"+Object+"</p>");
+	document.writeln("<p style='color:red'>"+Array+"</p>");
+	document.writeln("<p style='color:red'>"+Function+"</p>");
+	document.writeln("<p style='color:red'>"+Boolean+"</p>");
+	document.writeln("<p style='color:red'>"+String+"</p>");
+	document.writeln("<p style='color:red'>"+Number+"</p>");
+	document.writeln("<p style='color:red'>"+Date+"</p>");
+	document.writeln("<p style='color:red'>"+RegExp+"</p>");
+	document.writeln("<p style='color:red'>"+Error+"</p>");
+	</script>
+  </head>
+  
+  <body>
+  </body>
+</html>

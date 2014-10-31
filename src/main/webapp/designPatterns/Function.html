@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Function.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    var findNodes = function (callback) {
+	var nodes = [];
+	var node = complexComputation();
+	// 如果回调函数可用，则执行它
+	if (typeof callback === "function") {
+	callback(node);
+	}
+	nodes.push(node);
+	return nodes;
+	};
+	
+	// 定义callback
+	var hide = function (node) {
+	node.style.display = "none";
+	};
+	
+	// 查找node，然后隐藏所有的node
+	var hiddenNodes = findNodes(hide);
+	// 使用匿名函数定义callback
+	var blockNodes = findNodes(function (node) {
+		node.style.display = 'block';
+	});
+	
+	var menuId = $("ul.nav").first().attr("id");
+	var request = $.ajax({
+	  url: "script.php",
+	  type: "POST",
+	  data: {id : menuId},
+	  dataType: "html"
+	});
+	//调用成功时的回调处理
+	request.done(function(msg) {
+	  $("#log").html( msg );
+	});
+	//调用失败时的回调处理
+	request.fail(function(jqXHR, textStatus) {
+	  alert( "Request failed: " + textStatus );
+	});
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

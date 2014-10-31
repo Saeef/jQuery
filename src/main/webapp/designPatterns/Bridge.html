@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bridge.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    function getBeerById(id, callback) {
+		// 通过ID发送请求，然后返回数据
+		asyncRequest('GET', 'beer.uri?id=' + id, function(resp) {
+			// callback response
+			callback(resp.responseText);
+		});
+	}
+	
+	addEvent(element, 'click', getBeerByIdBridge);
+	function getBeerByIdBridge (e) {
+		getBeerById(this.id, function(beer) {
+			console.log('Requested Beer: '+beer);
+		});
+	}
+	
+	
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

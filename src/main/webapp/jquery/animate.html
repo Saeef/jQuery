@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    
+    <title>My JSP 'option.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<style type="text/css">
+	div.panel{
+		border:1px solid #000;
+		width:200px;
+		float:left;
+		margin:10px 10px;
+		background-color: #CDCD00;
+	}
+	div.panel  h3.head{
+		background-color: #919191;
+		margin:0 0 0 0;
+	}
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("#panel1 h3.head").bind("click",function(){//鼠标点击
+			var $content = $(this).next();
+			if($content.is(":visible"))
+			{
+				$content.hide();
+			}
+			else
+			{
+				$content.show();
+			}
+		});
+		
+		$("#panel2 h3.head").mouseover(function(){//鼠标移入移出
+			$(this).next().show();
+		});
+		$("#panel2 h3.head").mouseout(function(){
+			$(this).next().hide();
+		});
+		
+		$("#panel3 h3.head").hover(function(){//鼠标移入移出
+			$(this).next().show();
+		},function(){
+			$(this).next().hide();
+		});
+		
+		$("#panel4 h3.head").toggle(function(){//鼠标点击
+			$(this).next().show();
+		},function(){
+			$(this).next().hide();
+		});
+		
+		$("#panel5 h3.head").toggle(function(){//鼠标点击
+			$(this).next().slideUp("slow");
+		},function(){
+			$(this).next().slideDown("slow");
+		});
+		
+		$("#panel6 h3.head").toggle(function(){//鼠标点击
+			$(this).next().fadeIn("slow");
+		},function(){
+			$(this).next().fadeOut("slow");
+		});
+		
+		$("#panel7 h3.head").click(function(){//鼠标点击
+			var div = $("#panel7");
+    		div.animate({height:'300px',opacity:'0.2',left:'+=100px'},"slow");
+    		div.animate({width:'300px',opacity:'0.8'},"slow");
+    		div.animate({height:'100px',opacity:'0.2'},"slow");
+    		div.animate({width:'100px',opacity:'0.8',top:'+=100px'},"slow");
+		});
+		
+	});
+	</script>
+  </head>
+  
+  <body>
+  	<div id="panel1" class="panel">
+  		<h3 class="head">什么是jQuery1</h3>
+  		<div class="content" >
+  			jQuery是继prototype之后又一个优秀的javascript库，它是一个由John Resig创建于2006年1月的
+  			开源项目。jQuery凭借简洁的语法和跨平台的兼容性，极大的简化了javascript开发人员遍历html文档
+  			、操作DOM文档、处理事件、执行动画和开发ajax。它独特而又优雅的代码风格改变了javascript
+  			程序员的设计思路和编写程序的方式。
+  		</div>
+  	</div>
+  	<div id="panel2" class="panel">
+  		<h3 class="head">什么是jQuery2</h3>
+  		<div class="content" >
+  			jQuery是继prototype之后又一个优秀的javascript库，它是一个由John Resig创建于2006年1月的
+  			开源项目。jQuery凭借简洁的语法和跨平台的兼容性，极大的简化了javascript开发人员遍历html文档
+  			、操作DOM文档、处理事件、执行动画和开发ajax。它独特而又优雅的代码风格改变了javascript
+  			程序员的设计思路和编写程序的方式。
+  		</div>
+  	</div>
+  	<div id="panel3" class="panel">
+  		<h3 class="head">什么是jQuery3</h3>
+  		<div class="content" >
+  			jQuery是继prototype之后又一个优秀的javascript库，它是一个由John Resig创建于2006年1月的
+  			开源项目。jQuery凭借简洁的语法和跨平台的兼容性，极大的简化了javascript开发人员遍历html文档
+  			、操作DOM文档、处理事件、执行动画和开发ajax。它独特而又优雅的代码风格改变了javascript
+  			程序员的设计思路和编写程序的方式。
+  		</div>
+  	</div>
+  	<div id="panel4" class="panel">
+  		<h3 class="head">什么是jQuery4</h3>
+  		<div class="content" >
+  			jQuery是继prototype之后又一个优秀的javascript库，它是一个由John Resig创建于2006年1月的
+  			开源项目。jQuery凭借简洁的语法和跨平台的兼容性，极大的简化了javascript开发人员遍历html文档
+  			、操作DOM文档、处理事件、执行动画和开发ajax。它独特而又优雅的代码风格改变了javascript
+  			程序员的设计思路和编写程序的方式。
+  		</div>
+  	</div>
+  	<div id="panel5" class="panel">
+  		<h3 class="head">什么是jQuery5</h3>
+  		<div class="content" >
+  			jQuery是继prototype之后又一个优秀的javascript库，它是一个由John Resig创建于2006年1月的
+  			开源项目。jQuery凭借简洁的语法和跨平台的兼容性，极大的简化了javascript开发人员遍历html文档
+  			、操作DOM文档、处理事件、执行动画和开发ajax。它独特而又优雅的代码风格改变了javascript
+  			程序员的设计思路和编写程序的方式。
+  		</div>
+  	</div>
+  	<div id="panel6" class="panel">
+  		<h3 class="head">什么是jQuery6</h3>
+  		<div class="content" >
+  			jQuery是继prototype之后又一个优秀的javascript库，它是一个由John Resig创建于2006年1月的
+  			开源项目。jQuery凭借简洁的语法和跨平台的兼容性，极大的简化了javascript开发人员遍历html文档
+  			、操作DOM文档、处理事件、执行动画和开发ajax。它独特而又优雅的代码风格改变了javascript
+  			程序员的设计思路和编写程序的方式。
+  		</div>
+  	</div>
+  	
+  	<div id="panel7" class="panel" style="clear:left;position:relative;">
+  		<h3 class="head">什么是jQuery7</h3>
+  		<div class="content" >
+  			jQuery是继prototype之后又一个优秀的javascript库，它是一个由John Resig创建于2006年1月的
+  			开源项目。jQuery凭借简洁的语法和跨平台的兼容性，极大的简化了javascript开发人员遍历html文档
+  			、操作DOM文档、处理事件、执行动画和开发ajax。它独特而又优雅的代码风格改变了javascript
+  			程序员的设计思路和编写程序的方式。
+  		</div>
+  	</div>
+  	
+  </body>
+</html>

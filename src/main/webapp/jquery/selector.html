@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    
+    <title>My JSP 'selecter.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<style type="text/css">
+	div,span,p {
+    width:150px;
+    height:190px;
+    margin:2px;
+    background:#aaa;
+	border:#000 1px solid;
+    float:left;
+    font:17px arial,Verdana;
+  }
+  div.mini { 
+    width:60px;
+    height:65px;
+    background-color: #aaa;
+    font-size:12px;
+    padding-bottom:10px;
+  }
+  div.hide { 
+    display:none;
+  }
+  #btn input.basic 
+  {
+  	position: relative;
+  	top: 20px;
+  	float:left;
+  	clear:both;
+  }
+  #btn input.level 
+  {
+  	position: relative;
+  	top: 50px;
+  	float:left;
+  	clear:both;
+  }
+  #btn input.filter 
+  {
+  	position: relative;
+  	top: 80px;
+  	float:left;
+  }
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("#id选择器").click(function(){
+			$("#one").css("background","#CCFF99");
+		});
+		$("#class选择器").click(function(){
+			$(".mini").css("background","#FF99FF");
+		});
+		$("#元素选择器").click(function(){
+			$("div").css("background","#99FFFF");
+		});
+		$("#all").click(function(){
+			$("*").css("background","#AEEEEE");
+		});
+		
+		//在给定的祖先元素下匹配所有的后代元素
+		$("#level1").click(function(){
+			$("div .mini").css("background","#9F79EE");
+			$("div").find(".mini").css("background","#9F79EE");
+		});
+		//在给定的父元素下匹配所有的子元素
+		$("#level2").click(function(){
+			$("div>.mini").css("background","#DB7093");
+			$("div").children(".mini").css("background","#DB7093");
+		});
+		//匹配紧接在prev后的next元素（prev可能是多个）
+		$("#level3").click(function(){
+			$("#two+div").css("background","#FF6347");
+			$("#two").next("div").css("background","#FF6347");
+			//在匹配的元素集合中，如果至少有一个元素具有指定的class类，则返回true，否则返回false
+			alert($("#two").next("div").hasClass("one"));
+			//用一个表达式来检查当前选择的元素集合，如果其中至少有一个元素符合给定的表达式就返回true
+			alert($("#two").next("div").is("div"));
+		});
+		//匹配prev元素之后的所有siblings元素
+		$("#level4").click(function(){
+			$("#one~div").css("background","#EED2EE");
+			$("#one").nextAll("div").css("background","#EED2EE");
+		});
+		//取得一个包含匹配的元素集合中每一个元素的所有唯一同辈元素的元素集合
+		$("#level5").click(function(){
+			$("#two").siblings("div").css("background","#EED2EE");
+		});
+		//取得一个包含着所有匹配元素的唯一父元素的元素集合
+		$("#level6").click(function(){
+			$(".mini").parent("#one").css("background","#EED2EE");
+		});
+		
+		//匹配找到第一个元素
+		$("#filter1").click(function(){
+			$("div:first").css("background","#8B8B00");
+			$("div").first().css("background","#8B8B00");
+		});
+		//匹配找到最后一个元素
+		$("#filter2").click(function(){
+			$("div:last").css("background","#8B475D");
+			$("div").last().css("background","#8B475D");
+		});
+		//去除所有与给定选择器匹配的元素
+		$("#filter3").click(function(){
+			$("div:not(.one)").css("background","#9F79EE");
+		});
+		//匹配所有索引值为偶数的元素，从 0 开始计数
+		$("#filter4").click(function(){
+			$("div:even").css("background","#7CFC00");
+		});
+		//匹配所有索引值为奇数的元素，从 0 开始计数
+		$("#filter5").click(function(){
+			$("div:odd").css("background","#87CEFF");
+		});
+		//匹配一个给定索引值的元素
+		$("#filter6").click(function(){
+			$("div:eq(5)").css("background","#FAFAD2");
+			$("div").eq(5).css("background","#FAFAD2");
+		});
+		//匹配所有大于给定索引值的元素
+		$("#filter7").click(function(){
+			$("div:gt(5)").css("background","#EEB422");
+		});
+		//匹配所有小于给定索引值的元素
+		$("#filter8").click(function(){
+			$("div:lt(5)").css("background","#EE9572");
+		});
+		//匹配如 h1, h2, h3之类的标题元素
+		$("#filter9").click(function(){
+			$("div:header").css("background","#F08080");
+		});
+		//匹配所有正在执行动画效果的元素
+		$("#filter10").click(function(){
+			$("div:animated").css("background","#F08080");
+		});
+		
+		//匹配包含给定文本的元素
+		$("#filter21").click(function(){
+			$("div:contains(ti)").css("background","#F08080");
+		});
+		//匹配所有不包含子元素或者文本的空元素
+		$("#filter22").click(function(){
+			$("div:empty").css("background","#F08080");
+		});
+		//匹配含有选择器所匹配的元素的元素
+		$("#filter23").click(function(){
+			$("div:has(div)").css("background","#F08080");
+		});
+		//匹配含有子元素或者文本的元素
+		$("#filter24").click(function(){
+			$("div:parent").css("background","#F08080");
+		});
+		
+		//匹配所有的可见元素
+		$("#filter31").click(function(){
+			$("div:visible").css("background","#F08080");
+		});
+		//匹配所有不可见元素，或者type为hidden的元素
+		$("#filter32").click(function(){
+			$("div:hidden").show(8000);
+		});
+		
+		//匹配包含给定属性的元素
+		$("#filter41").click(function(){
+			$("div[title]").css("background","#FFFACD");
+		});
+		//匹配给定的属性是某个特定值的元素
+		$("#filter42").click(function(){
+			$("div[title=test]").css("background","#FFF0F5");
+		});
+		//匹配所有不含有指定的属性，或者属性不等于特定值的元素
+		$("#filter43").click(function(){
+			$("div[title!=test]").css("background","#EEE9BF");
+		});
+		//匹配给定的属性是以某些值开始的元素
+		$("#filter44").click(function(){
+			$("div[title^=te]").css("background","#EEEE00");
+		});
+		//匹配给定的属性是以某些值结尾的元素
+		$("#filter45").click(function(){
+			$("div[title$=st]").css("background","#DC143C");
+		});
+		//匹配给定的属性是以包含某些值的元素
+		$("#filter46").click(function(){
+			$("div[title*=es]").css("background","#CDCD00");
+		});
+		//复合属性选择器，需要同时满足多个条件时使用
+		$("#filter47").click(function(){
+			$("div[id][title*=es]").css("background","#CAFF70");
+		});
+		
+		//匹配其父元素下的第N个子或奇偶元素[index/even/odd]
+		$("#filter51").click(function(){
+			$("div :nth-child(2)").css("background","#CAFF70");
+		});
+		//匹配所有父元素的第一个子元素
+		$("#filter52").click(function(){
+			$("div :first-child").css("background","#CAFF70");
+		});
+		//匹配所有父元素的最后一个子元素
+		$("#filter53").click(function(){
+			$("div :last-child").css("background","#CAFF70");
+		});
+		//如果某个元素是父元素中唯一的子元素，那将会被匹配
+		$("#filter54").click(function(){
+			$("div :only-child").css("background","#CAFF70");
+		});
+	});
+	</script>
+  </head>
+  
+  <body>
+   	<div class="one" id="one" >
+ 		id为<font color="blue">one</font>,class为<font color="red">one</font>的div,index为0
+      <div class="mini">
+      		class为<font color="red">mini</font>,index为1
+      </div>
+      <span style="height:140px;width:75px;">
+      		这是一个span
+	      <div class="mini">
+	      		class为<font color="red">mini</font>,index为2
+	      </div>
+      </span>
+  	</div>
+
+    <div class="one"  id="two" title="test" >
+		 id为<font color="blue">two</font>,
+		 class为<font color="red">one</font>,
+		 title为<font color="yellow">test</font>的div,index为3
+      <div class="mini"  title="other">
+      		class为<font color="red">mini</font>,
+      		title为<font color="yellow">other</font>,index为4
+      </div>
+      <div class="mini"  title="test">
+      		class为<font color="red">mini</font>,
+      		title为<font color="yellow">test</font>,index为5
+      </div>
+  	</div>
+
+  	<div class="one">
+  	class为<font color="red">one</font>,index为6
+      <div class="mini">
+      		class为<font color="red">mini</font>,index为7
+      </div>
+      <div class="mini">
+      		class为<font color="red">mini</font>,index为8
+      </div>
+	  <div class="mini">
+	  		class为<font color="red">mini</font>,index为9
+	  </div>
+	  <div class="mini"></div>
+  	</div>
+
+  	<div class="one">
+  	class为<font color="red">one</font>,index为11
+      <div class="mini">
+      		class为<font color="red">mini</font>,index为12
+      </div>
+      <div class="mini">
+      		class为<font color="red">mini</font>,index为13
+      </div>
+	  <div class="mini">
+	  		class为<font color="red">mini</font>,index为14
+	  </div>
+	  <div class="mini"  title="tesst">
+	  		class为<font color="red">mini</font>,
+	  		title为<font color="yellow">tesst</font>,index为15
+	  </div>
+  	</div>
+
+  	<div style="display:none;"  class="none">
+  			style的display为<font color="red">none</font>的div,index为16
+  	</div>
+  
+  	<div class="hide">
+  		class为<font color="red">hide</font>的div,index为17
+  	</div>
+ 
+  	<div>
+  		包含input的type为"hidden"的div,index为18<input type="hidden" size="8"/>
+  	</div>
+  	<span id="mover">正在执行动画的span元素</span>
+  	
+  	<span style="width:100%;height:500px;background:#fff;position:relative" id="btn">
+	  	<input type="button" value="id选择器" id="id选择器" class="basic">
+		<input type="button" value="class选择器" id="class选择器" class="basic">
+		<input type="button" value="元素选择器" id="元素选择器" class="basic">
+		<input type="button" value="all" id="all" class="basic">
+		
+		<input type="button" value="div .mini   |   $('div').find('.mini ')" id="level1"  class="level">
+		<input type="button" value="div>.mini   |   $('div').children('.mini')" id="level2" class="level">
+		<input type="button" value="#two+div    |   $('#two').next('div')" id="level3" class="level">
+		<input type="button" value="#one~div    |   $('#one').nextAll('div')" id="level4" class="level">
+		<input type="button" value="('#two').siblings('div')" id="level5" class="level">
+		<input type="button" value="$('.mini').parent('#one')" id="level6" class="level">
+		
+		
+		
+		<input type="button" value="div:first" id="filter1"  class="filter">
+		<input type="button" value="div:last" id="filter2" class="filter">
+		<input type="button" value="div:not(.one)" id="filter3" class="filter">
+		<input type="button" value="div:even" id="filter4" class="filter">
+		<input type="button" value="div:odd" id="filter5" class="filter">
+		<input type="button" value="div:eq(5)" id="filter6" class="filter">
+		<input type="button" value="div:gt(5)" id="filter7" class="filter">
+		<input type="button" value="div:lt(5)" id="filter8" class="filter">
+		<input type="button" value=":header" id="filter9" class="filter">
+		<input type="button" value=":animated" id="filter10" class="filter">
+		<input type="button" value="div:contains(ti)" id="filter21" class="filter">
+		<input type="button" value="div:empty" id="filter22" class="filter">
+		<input type="button" value="div:has(div)" id="filter23" class="filter">
+		<input type="button" value="div:parent" id="filter24" class="filter"><!-- 匹配含有子元素或者文本的元素 -->
+		<input type="button" value="div:visible" id="filter31" class="filter">
+		<input type="button" value="div:hidden" id="filter32" class="filter">
+		<input type="button" value="div[title]" id="filter41" class="filter">
+		<input type="button" value="div[title=test]" id="filter42" class="filter">
+		<input type="button" value="div[title!=test]" id="filter43" class="filter">
+		<input type="button" value="div[title^=te]" id="filter44" class="filter">
+		<input type="button" value="div[title$=st]" id="filter45" class="filter">
+		<input type="button" value="div[title*=es]" id="filter46" class="filter">
+		<input type="button" value="div[id][title*=es]" id="filter47" class="filter">
+		<input type="button" value="div :nth-child(2)" id="filter51" class="filter"><!-- 匹配其父元素下的第N个子或奇偶元素 -->
+		<input type="button" value="div :first-child" id="filter52" class="filter"><!-- 匹配第一个子元素 -->
+		<input type="button" value="div :last-child" id="filter53" class="filter"><!-- 匹配最后一个子元素 -->
+		<input type="button" value="div :only-child" id="filter54" class="filter"><!-- 如果某个元素是父元素中唯一的子元素，那将会被匹配如果父元素中含有其他元素，那将不会被匹配。 -->
+	</span>
+  </body>
+</html>
