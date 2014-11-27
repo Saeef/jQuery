@@ -43,6 +43,15 @@
   </dependencies>
   
   <build>
-    <finalName>jQuery</finalName>
+	  	<plugins>
+	  		<plugin>
+	  			<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-compiler-plugin</artifactId>
+	  			<configuration>
+	  				<target>1.7</target>
+	  				<resource>1.7</resource>
+	  			</configuration>
+	  		</plugin>
+	  	</plugins>
   </build>
 </project>
