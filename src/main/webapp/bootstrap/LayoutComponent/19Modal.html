@@ -46,50 +46,18 @@
 		</div><!-- /.modal-dialog -->
 	</div>
 	
-	
-	
-	
-	<h2>模态框（Modal）插件方法</h2>
-
-	<!-- 按钮触发模态框 -->
-	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
-   		开始演示模态框
-	</button>
-
-	<!-- 模态框（Modal） -->
-	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   		<div class="modal-dialog">
-      		<div class="modal-content">
-         		<div class="modal-header">
-            		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-            			×
-            		</button>
-            		<h4 class="modal-title" id="myModalLabel">
-               			模态框（Modal）标题
-            		</h4>
-         		</div>
-         		<div class="modal-body">
-            		按下 ESC 按钮退出。
-         		</div>
-         		<div class="modal-footer">
-         			<button type="button" class="btn btn-primary">
-               			确定
-            		</button>
-            		<button type="button" class="btn btn-default" data-dismiss="modal">
-            			关闭
-            		</button>
-         		</div>
-      		</div><!-- /.modal-content -->
-   		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
 	<script>
 	   $(function(){ 
-			$('#myModal2').modal({
-	      		keyboard: true
-	   		});
+			$('#myModal').on('shown.bs.modal',function(){
+			      alert('正在打开窗口');
+			});
 			
 			$('#myModal').on('hide.bs.modal',function(){
-			      alert('嘿，我听说您喜欢模态框...');
+			      alert('正在关闭窗口');
+			});
+			
+			$('#myModal').on('hidden.bs.modal',function(){
+			      alert('窗口已经完全被关闭');
 			});
 	   });
 	</script>
