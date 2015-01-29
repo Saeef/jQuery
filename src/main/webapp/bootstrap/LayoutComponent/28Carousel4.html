@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html>
+<head> 
+ 	<title>轮播</title> 
+ 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ 	<!-- Bootstrap --> 
+ 	<link href="../../js/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> 
+  	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]--> 
+	<script src="../../js/jquery-2.1.0.min.js"></script> 
+    <script src="../../js/bootstrap/js/bootstrap.min.js"></script> 
+</head> 
+<body> 
+	<div id="myCarousel" class="carousel slide">
+   		<!-- 轮播（Carousel）指标 -->
+   		<ol class="carousel-indicators">
+      		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      		<li data-target="#myCarousel" data-slide-to="1"></li>
+      		<li data-target="#myCarousel" data-slide-to="2"></li>
+   		</ol>   
+   		<!-- 轮播（Carousel）项目 -->
+   		<div class="carousel-inner">
+      		<div class="item active">
+         		<img src="../../images/slide1.png" alt="First slide">
+      		</div>
+      		<div class="item">
+         		<img src="../../images/slide2.png" alt="Second slide">
+      		</div>
+      		<div class="item">
+         		<img src="../../images/slide3.png" alt="Third slide">
+      		</div>
+   		</div>
+   		<!-- 轮播（Carousel）导航 -->
+   		<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+   		<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+	</div> 
+	<script>
+   	$(function(){
+      $('#myCarousel').on('slide.bs.carousel', function () {
+         alert("当调用 slide 实例方法时立即触发该事件。");
+      });
+   	});
+	</script>
+
+</body> 
+</html>
