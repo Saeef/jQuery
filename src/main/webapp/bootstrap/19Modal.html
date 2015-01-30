@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html>
+<head> 
+ 	<title>模态框</title> 
+ 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ 	<!-- Bootstrap --> 
+ 	<link href="../js/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> 
+  	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]--> 
+	<script src="../js/jquery-2.1.0.min.js"></script> 
+    <script src="../js/bootstrap/js/bootstrap.min.js"></script> 
+</head> 
+<body> 
+	<h2>创建模态框（Modal）</h2>
+	<!-- 按钮触发模态框 -->
+	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+   		开始演示模态框
+	</button>
+
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   		<div class="modal-dialog">
+      		<div class="modal-content">
+	         	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            	</button>
+	            	<h4 class="modal-title" id="myModalLabel">
+	               		模态框（Modal）标题
+	            	</h4>
+	        	 </div>
+	         	<div class="modal-body">
+	            	在这里添加一些文本
+	         	</div>
+	         	<div class="modal-footer">
+	         		<button type="button" class="btn btn-primary">
+	              		 确定
+	            	</button>
+	            	<button type="button" class="btn btn-default" data-dismiss="modal">
+	            		关闭
+	            	</button>
+	         	</div>
+      		</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	
+	<script>
+	   $(function(){ 
+			$('#myModal').on('shown.bs.modal',function(){
+			      alert('正在打开窗口');
+			});
+			
+			$('#myModal').on('hide.bs.modal',function(){
+			      alert('正在关闭窗口');
+			});
+			
+			$('#myModal').on('hidden.bs.modal',function(){
+			      alert('窗口已经完全被关闭');
+			});
+	   });
+	</script>
+</body> 
+</html>
