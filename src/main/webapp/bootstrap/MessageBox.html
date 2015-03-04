@@ -14,18 +14,19 @@
     <script src="../js/bootstrap/js/bootbox.min.js"></script>
     <script type="text/javascript">
     $(function(){
-    	bootbox.confirm("是否确认",function(result){
-        	if(result){
-        		bootbox.alert("yes");
-        	}else{
-        		bootbox.alert("no");
-        	}
-        });
+    	$(".btn").click(function(){
+    		bootbox.confirm("是否确认",function(result){
+            	if(result){
+            		bootbox.alert("yes");
+            	}else{
+            		bootbox.alert("no");
+            	}
+            });
+    	});
     });
     </script>
 </head> 
-<body> 
-	
-	
+<body style="text-align: center"> 
+<button type="button" class="btn btn-primary">原始按钮</button>	
 </body> 
 </html>
