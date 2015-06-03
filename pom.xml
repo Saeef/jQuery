@@ -4,7 +4,7 @@
   <groupId>com.somnus</groupId>
   <artifactId>jQuery</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>8.0.8</version>
   <name>jQuery Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -52,6 +52,21 @@
 	  				<resource>1.7</resource>
 	  			</configuration>
 	  		</plugin>
+	  		<plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <!-- server、username、password对应maven的setting下的配置 -->
+                    <server>tomcat</server>
+                    <username>tomcat</username>
+                    <password>tomcat</password>
+                    <path>/${project.build.finalName}</path>
+                    <!-- war文件路径缺省情况下指向target -->
+                    <!--<warFile>${basedir}/target/${project.build.finalName}.war</warFile>-->
+                </configuration>
+            </plugin>
 	  	</plugins>
   </build>
 </project>
