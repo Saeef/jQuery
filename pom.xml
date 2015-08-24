@@ -66,6 +66,14 @@
                     <!-- war文件路径缺省情况下指向target -->
                     <!--<warFile>${basedir}/target/${project.build.finalName}.war</warFile>-->
                 </configuration>
+                <executions>
+                	<execution>
+                		<phase>package</phase>
+                		<goals>
+                			<goal>run</goal>
+                		</goals>
+                	</execution>
+                </executions>
             </plugin>
 	  	</plugins>
   </build>

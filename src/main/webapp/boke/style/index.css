@@ -1,20 +1,4 @@
-﻿body {
-	margin:0;
-	padding:0;
-	/* background-image:url(../images/background.jpg) ;
-	background-attachment:fixed; */
-	font-size:12px;
-	font-family:arial;
-	color:#333;
-}
-ul,li,dl ,dd,h2,p{
-	padding:0;
-	margin:0;
-}
-ul,li {
-	list-style:none;
-}
-#header {
+﻿#header {
 	width:auto;
 	height:30px;
 	margin:0 auto;/*自适应其实就是居中*/

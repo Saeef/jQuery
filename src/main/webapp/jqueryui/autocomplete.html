@@ -36,7 +36,7 @@
 				$("#msg").empty().html("<font color='green'>"+ui.item.value+"</font>");
 			},
 			response:function(event, ui){
-			$("#msg").empty();
+			    $("#msg").empty();
 				$.each(ui.content, function(i, v){
  					$("#msg").append("<font color='#000'>"+v.value+"|"+v.label+"</font>,");
 				});
