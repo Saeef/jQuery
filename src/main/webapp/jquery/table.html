@@ -143,13 +143,13 @@
 		//展现修改弹出框
 		$("table.table-report tr td a.modify").click(function(){
 			modify.show().center(450,360);
-			$("#modify :input[name=id]").val($(this).parent().parent().find("td").eq(0).text());
-			$("#modify div.form :input[name=username]").val($(this).parent().parent().find("td").eq(2).text());
-			$("#modify div.form :input[name=password]").val($(this).parent().parent().find("td").eq(3).text());
-			var option = $(this).parent().parent().find("td").eq(4).text();
+			$("#modify :input[name=id]").val($(this).parent().siblings().eq(0).text());
+			$("#modify div.form :input[name=username]").val($(this).parent().siblings().eq(2).text());
+			$("#modify div.form :input[name=password]").val($(this).parent().siblings().eq(3).text());
+			var option = $(this).parent().siblings().eq(4).text();
 			$("#modify div.form :input[name=nativePlace] option[value="+option+"]").attr("selected",true);
-			$("#modify div.form :input[name=salary]").val($(this).parent().parent().find("td").eq(5).text());
-			var v = $(this).parent().parent().find("td").eq(6).text();
+			$("#modify div.form :input[name=salary]").val($(this).parent().siblings().eq(5).text());
+			var v = $(this).parent().siblings().eq(6).text();
 			var arr = v.split(",");
 			$("#modify div.form :checkbox[name=hobby]").each(function(){
 				$(this).attr("checked",false);
@@ -157,7 +157,7 @@
 			$.each(arr,function(i,n){
 				$("#modify div.form :checkbox[name=hobby][value="+n+"]").attr("checked",true);
 			});
-			var radio = $(this).parent().parent().find("td").eq(7).text();
+			var radio = $(this).parent().siblings().eq(7).text();
 			$("#modify div.form :radio[name=sex][value="+radio+"]").attr("checked",true);
 			$.lock();
 		});
@@ -231,7 +231,7 @@
 		//删除
 		$("table.table-report tr td a.delete").click(function () 
 		{
-			var id = $(this).parent().parent().find("td").eq(1).text();
+			var id = $(this).parent().siblings().eq(1).text();
 			$.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) 
 			{
 			    if (data) 
