@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/foundation.css" />
+	<title>Angularjs模型</title>
+</head>
+<body style="padding:10px" ng-app="app">
+	<h1>双向绑定</h1>
+	<div ng-controller="MyCtrl" style="border:1px solid #00FA9A;padding:10px">
+		<input type="text" ng-model="name">
+		<p>你输入了: {{name}}</p>
+		<div ng-bind="'name:' + name"></div>
+		<div class="{{name}}">{{name}}</div>
+	</div>
+	
+	<h1>验证用户输入</h1>
+	<div ng-init="firstName='John'" style="border:1px solid #00FA9A">
+	 	<form name="myForm">
+    		Email:
+    		<input type="email" name="myAddress" ng-model="text">
+    		<span ng-show="myForm.myAddress.$error.email">不是一个合法的邮箱地址</span>
+		</form>
+		<p>在输入框中输入你的游戏地址，如果不是一个合法的邮箱地址，会弹出提示信息。</p>
+	</div>
+	
+	<h1>应用状态</h1>
+	<div ng-init="firstName='John'" style="border:1px solid #00FA9A">
+	 	<form ng-app="" name="myForm" ng-init="myText = 'test@runoob.com'">
+			Email:
+			<input type="email" name="myAddress" ng-model="myText" required>
+			<p>编辑邮箱地址，查看状态的改变。</p>
+			<h1>状态</h1>
+			<p>Valid: {{myForm.myAddress.$valid}} (如果输入的值是合法的则为 true)。</p>
+			<p>Dirty: {{myForm.myAddress.$dirty}} (如果值改变则为 true)。</p>
+			<p>Touched: {{myForm.myAddress.$touched}} (如果通过触屏点击则为 true)。</p>
+		</form>
+	</div>
+	
+</body>
+<script src="../js/angularjs/angular.min.js"></script>
+<script type="text/javascript">
+	angular.module('app',[]).controller('MyCtrl',function($scope){
+		$scope.name = "angular";
+	});
+</script>
+</html>
