@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>注册</title>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	
+	<script type="text/javascript" src="../js/jquery-1.5.2.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//http://jquery.wozsz.com/remote.jsp?callback=callbackHandler&username=aaa&password=111&_=1459404522518
+			$(":button").click(function(){
+				$.ajax({  
+			        url:"http://jquery.wozsz.com/remote.jsp",
+			        dataType:'jsonp',
+			        data:{username:$(":input[name=username]").val(),
+                   	 	  password:$(":input[name=password]").val()},
+			        jsonp:'callback',//默认callback
+			        jsonpCallback:'callbackHandler',
+			        success:function(data) {
+			              alert(data.username+"|"+data.password);
+			        },
+			        timeout:3000
+			    });
+			});
+		});
+	</script>
+	<style type="text/css">
+		#round {
+		    padding:10px; width:300px; height:150px;
+		    border:1px solid #000;
+		    -moz-border-radius: 10px;
+		    -webkit-border-radius: 10px;
+		    border-radius:10px;
+		    margin:10px auto;
+		}
+		#round div.user, #round div.pass {
+			font-size:14px;
+			color:#666;
+			padding:15px 0;
+			text-align:center;
+			position: relative;
+		}
+		#round span{
+			position: absolute;
+			color:red;
+			top:35px;
+			left:100px;
+		}
+		#round input.text {
+			width:200px;
+			height:25px;
+			border:1px solid #ccc;
+			background:#fff;
+			font-size:14px;
+		}
+		#round .button {
+			padding:5px 0;
+			text-align:center;
+		}
+	</style>
+  </head>
+  
+  <body>
+  	<div id="round">
+	    <form name="rgform" method="post" action="" >
+		    <div class="user">
+			   	 用户名:<input type="text" name="username">
+			   	 <span id="msg"></span>
+		   	 </div>
+		   	 <div class="pass">
+		     	密&nbsp;&nbsp;码:<input type="password" name="password">
+		     </div>
+		     <div class="button"><input type="button" value="提交"/></div>
+    	</form>
+    </div>
+  </body>
+</html>
