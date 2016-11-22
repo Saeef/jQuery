@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>command.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    $(function () {
+	    var CarManager = {
+	        // 请求信息
+	        requestInfo: function (model, id) {
+	            return 'The information for ' + model +
+	        ' with ID ' + id + ' is foobar';
+	        },
+	        // 购买汽车
+	        buyVehicle: function (model, id) {
+	            return 'You have successfully purchased Item '
+	        + id + ', a ' + model;
+	        },
+	        // 组织view
+	        arrangeViewing: function (model, id) {
+	            return 'You have successfully booked a viewing of '
+	        + model + ' ( ' + id + ' ) ';
+	        }
+	    };
+	})();
+	
+	CarManager.execute({ commandType: "buyVehicle", operand1: 'Ford Escort', operand2: '453543' });
+	
+	CarManager.execute = function (command) {
+	    return CarManager[command.request](command.model, command.carID);
+	};
+	
+	CarManager.execute({ request: "arrangeViewing", model: 'Ferrari', carID: '145523' });
+	CarManager.execute({ request: "requestInfo", model: 'Ford Mondeo', carID: '543434' });
+	CarManager.execute({ request: "requestInfo", model: 'Ford Escort', carID: '543434' });
+	CarManager.execute({ request: "buyVehicle", model: 'Ford Escort', carID: '543434' });
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="../js/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-2.1.0.min.js"></script>
+    <script src="../js/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h2>默认警示框</h2>
+    <div class="alert alert-success" role="alert">恭喜您操作成功！</div>
+    <div class="alert alert-info" role="alert">请输入正确的密码</div>
+    <div class="alert alert-warning" role="alert">您已操作失败两次，还有最后一次机会</div>
+    <div class="alert alert-danger" role="alert">对不起，您输入的密码有误</div>
+
+    <h2>可关闭的警示框</h2>
+    <div class="alert alert-success alert-dismissable" role="alert">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        恭喜您操作成功！
+    </div>
+    <div class="alert alert-info alert-dismissable" role="alert">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        请输入正确的密码
+    </div>
+    <div class="alert alert-warning alert-dismissable" role="alert">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        您已操作失败两次，还有最后一次机会
+    </div>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        对不起，您输入的密码有误
+    </div>
+
+    <h2>警示框的链接</h2>
+    <div class="alert alert-success" role="alert">
+        <strong>Well done!</strong> You successfully read
+        <a href="#" class="alert-link">this important alert message</a> .
+    </div>
+    <div class="alert alert-info" role="alert">
+        <strong>Heads up!</strong> This
+        <a href="#" class="alert-link">alert needs your attention</a> , but it's not super important.
+    </div>
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> Better check yourself, you're
+        <a href="#" class="alert-link">not looking too good</a> .
+    </div>
+    <div class="alert alert-danger" role="alert">
+        <strong>Oh snap!</strong>
+        <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+    </div>
+
+    <h3>使用&times;作为关闭按</h3>
+    <div class="alert alert-success" role="alert">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        <p>恭喜您操作成功！</p>
+    </div>
+
+    <h3>使用a标签作为关闭按钮</h3>
+    <div class="alert alert-warning" role="alert">
+        <h4>谨防被骗</h4>
+        <p>请确认您转账的信息是你的亲朋好友，不要轻意相信不认识的人...</p>
+        <a href="#" class="btn btn-danger" data-dismiss="alert">关闭</a>
+    </div>
+
+    <h3>使用button按钮作为关闭按钮</h3>
+    <div class="alert alert-warning" role="alert" id="myAlert">
+        <h4>谨防被骗</h4>
+        <p>请确认您转账的信息是你的亲朋好友，不要轻意相信不认识的人...</p>
+    </div>
+    <button type="button" data-target="#myAlert" class="btn btn-danger" data-dismiss="alert">关闭</button>
+
+    <h3>JavaScript触发警告框</h3>
+    <div class="alert alert-warning" role="alert" id="myAlert">
+        <h4>谨防被骗</h4>
+        <p>请确认您转账的信息是你的亲朋好友，不要轻意相信不认识的人...</p>
+        <button type="button"  class="btn btn-danger" id="close">关闭</button>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        $("#close").on("click",function(){
+            $(this).alert("close");
+        });
+    });
+</script>
+</html>

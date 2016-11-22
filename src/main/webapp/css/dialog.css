@@ -1,0 +1,73 @@
+#modify ,#add {
+	/* width:450px;
+	height:300px; */
+	border:1px solid #ccc;
+	position:absolute;
+	top:20px;
+	z-index:9999;
+	display:none;
+	background:#fff;
+}
+#modify h2 ,#add h2 {
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	font-size:14px;
+	letter-spacing:1px;
+	color:#666;
+	background:url(../images/header.png) repeat-x;
+	margin:0;
+	padding:0;
+	border-bottom:1px solid #ccc;
+	margin:0 0 20px 0;
+	cursor:move;
+}
+#modify h2 img,#add h2 img {
+	float:right;
+	position:relative;
+	top:14px;
+	right:8px;
+	cursor:pointer;
+}
+#modify div.form,#add div.form{
+	font-size:14px;
+	color:#666;
+	margin:0 30px 0 30px;
+	padding:5px 0;
+	position: relative;
+	height:30px;
+}
+#modify div.form div.right,#add div.form div.right{
+	position: absolute;
+	left:60px;
+	top:3px;
+}
+
+#modify input.text,#add input.text,#modify select,#add select {
+	width:200px;
+	height:25px;
+	border:1px solid #ccc;
+	background:#fff;
+	font-size:14px;
+}
+#modify input.text2,#add input.text2  {
+	width:200px;
+	height:25px;
+	border:1px solid #ccc;
+	background:#fff;
+	font-size:14px;
+}
+#modify .button,#add .button {
+	text-align:center;
+	padding:20px 0;
+}
+#screen {
+	position:absolute;
+	top:0;
+	left:0;
+	background:#000;
+	z-index:9998;
+	filter:alpha(opacity=0);
+	opacity:0;
+	display:none;
+}

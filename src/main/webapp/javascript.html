@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>study js</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    var person = {name:"dream",age:24,fun:function(){}};
+    document.write("<p style='color:blue'>"+person.name+"----"+person['name']+"</p>");
+    for(var i in person)
+    {
+    	document.write(i+"|"+person[i]+"<br/>");
+    }
+    document.write("**********************************<br/>");
+    
+    var num = 1;
+    document.write(typeof(num)+"<br/>");//number
+    var str = "abc";
+    document.write(typeof(str)+"<br/>");//string
+    var obj = {name:"alen",age:22};
+    document.write(typeof(obj)+"<br/>");//object
+     var bol = false;
+    document.write(typeof(bol)+"<br/>");//boolean
+    var fun = function(){alert("msg");};
+    document.write(typeof(fun)+"<br/>");//function
+     var arr = [];  ;
+    document.write(typeof(arr)+"<br/>");//object
+    
+    var nul = null;  ;
+    document.write(typeof(nul)+"<br/>");//object
+    var nan = NaN;  ;
+    document.write(typeof(nan)+"<br/>");//number
+    var infinity = Infinity;  ;
+    document.write(typeof(infinity)+"<br/>");//number
+    
+    var un  ;
+    document.write(typeof(un)+"<br/>");//undefined
+    document.write(typeof(u)+"<br/>");//undefined
+    var unde = undefined;
+    document.write(typeof(unde)+"<br/>");//undefined
+    document.writeln("<p style='color:blue'>"+(undefined == null)+"</p>");//true
+    document.writeln("<p style='color:blue'>"+(undefined === null)+"</p>");//false
+    document.writeln("<p style='color:blue'>"+(typeof(undefined) == typeof(null))+"</p>");//false
+    /************************************************************/
+    var color = "red";
+    var box = {color:"blue"};
+    function sayColor(arg1,arg2)
+    {
+    	document.write("<p style='color:red'>"+arg1+"*****"+this.color+"*****"+arg2+"</p>");
+    }
+     sayColor(2,5);
+     sayColor.call(window,2,5);
+     sayColor.call(box,2,5);
+     
+     sayColor.apply(window,[2,5]);
+     sayColor.apply(box,[2,5]);
+      /************************************************************/
+      function method(arg1,arg2)
+      {
+      	return arg1 + arg2;
+      }
+      function applyMethod(arg1,arg2)
+      {
+      	return method.apply(this, [arg1,arg2]);
+      }
+      function callMethod(arg1,arg2)
+      {
+      	return method.call(this, arg1,arg2);
+      }
+      document.write("<p style='color:blue'>"+method(5,5)+"</p>");
+      document.write("<p style='color:blue'>"+applyMethod(5,5)+"</p>");
+      document.write("<p style='color:blue'>"+callMethod(5,5)+"</p>");
+      /************************************************************/
+	  function sum(num) 
+	  {
+		 if (num <= 1) {
+			 return 1;
+		 } else {
+			 return num * arguments.callee(num - 1);//使用callee 来执行自身
+		 }
+	 }
+	 document.write(sum(5));
+	 /************************************************************/
+	 document.write("<p style='color:purple'>"+encodeURI("//liu柳")+"</p>");
+	 document.write("<p style='color:purple'>"+encodeURIComponent("//liu柳")+"</p>");
+	 document.write("<p style='color:purple'>"+decodeURI("//liu%E6%9F%B3")+"</p>");
+	 document.write("<p style='color:purple'>"+decodeURIComponent("%2F%2Fliu%E6%9F%B3")+"</p>");
+	/************************************************************/
+	//普通函数
+	function commonFunction()
+	{
+		document.write("<p style='color:powderblue'>普通函数:"+Math.PI+"</p>");
+	}
+	commonFunction();
+	//匿名函数
+	var anonymityFunction = function ()
+	{
+		document.write("<p style='color:orange'>匿名函数:"+Math.PI+"</p>");
+	};
+	anonymityFunction();
+	//自执行函数
+	(function(window){
+		document.write("<p style='color:red'>自执行函数:"+Math.PI+"</p>");
+	}(window));//推荐这种
+	(function(window){
+		document.write("<p style='color:red'>自执行函数:"+Math.PI+"</p>");
+	})(window);
+	//函数里的匿名函数
+	function inner()
+	{
+		return function()
+		{
+			document.write("<p style='color:#000'>函数里的匿名函数:"+Math.PI+"</p>");
+		};
+	}
+	inner()();
+	//闭包
+	function Closure()
+	{
+		var user = "lucy";
+		return function ()
+		{
+			document.write("<p style='color:blue'>"+user+"</p>");
+		};
+	}
+	Closure()();//var c = Closure(); c();
+	
+	////通过全局变量来累加
+	var age = 100;
+	function accumulation1()
+	{
+		age++;
+	}
+	accumulation1();
+	document.write("<p style='color:blue'>通过全局变量来累加:"+age+"</p>");
+	accumulation1();
+	document.write("<p style='color:blue'>通过全局变量来累加:"+age+"</p>");
+	accumulation1();
+	document.write("<p style='color:blue'>通过全局变量来累加:"+age+"</p>");
+	
+	//通过局部变量无法实现累加
+	function accumulation2()
+	{
+		var age = 100;
+		age++;
+		return age;
+	}
+	document.write("<p style='color:orange'>通过局部变量无法实现累加:"+accumulation2()+"</p>");
+	document.write("<p style='color:orange'>通过局部变量无法实现累加:"+accumulation2()+"</p>");
+	document.write("<p style='color:orange'>通过局部变量无法实现累加:"+accumulation2()+"</p>");
+	
+	//通过闭包可以实现局部变量的累加
+	function accumulation3()
+	{
+		var age = 100;
+		return function()
+		{
+			age++;
+			return age;
+		};
+	}
+	var s = accumulation3();
+	document.write("<p style='color:red'>通过闭包可以实现局部变量的累加:"+s()+"</p>");
+	document.write("<p style='color:red'>通过闭包可以实现局部变量的累加:"+s()+"</p>");
+	document.write("<p style='color:red'>通过闭包可以实现局部变量的累加:"+s()+"</p>");
+	
+	//循环里包含匿名函数
+	function loop1()
+	{
+		var arr = [];
+		for(var i = 0;i<5;i++)
+		{
+			arr[i] = function()
+			{
+				return i;
+			};
+		}
+		return arr;
+	}
+	var lp1 = loop1();
+	document.write("<p style='color:pink'>数组长度:"+lp1.length+"</p>");
+	for(var i = 0;i<lp1.length;i++)
+	{
+		document.write("<p style='color:pink'>循环里包含匿名函数:"+lp1[i]()+"</p>");
+	}
+	/**
+	 *上面的例子输出的结果都是5，也就是循环后得到的最大的i 值。因为lp1[i]调用的是匿名函数
+	 * 匿名函数并没有自我执行，等到调用的时候，loop1()已执行完毕，i 早已变成5，
+	 * 所以最终的结果就是5 个5。
+	 */
+	 
+	 
+	 //循环里包含匿名函数-改1，自我执行匿名函数
+	 function loop2()
+	{
+		var arr = [];
+		for(var i = 0;i<5;i++)
+		{
+			arr[i] = (function(num)
+			{
+				return num;
+			})(i);
+		}
+		return arr;
+	}
+	var lp2 = loop2();
+	document.write("<p style='color:pink'>数组长度:"+lp2.length+"</p>");
+	for(var i = 0;i<lp2.length;i++)
+	{
+		document.write("<p style='color:pink'>"+lp2[i]+"</p>");
+	}
+	/**
+	 * 我们让匿名函数进行自我执行，导致最终返回给a[i]的是数组而不是函数了。
+	 * 最终导致b[0]-b[4]中保留了0,1,2,3,4 的值。
+	 */
+
+	
+	//私有变量
+	function Object()
+	{
+		var _user = "lucy";
+		function privateMethod()
+		{
+			return ".......";
+		};
+		this.get =function()
+		{
+			document.write("<p style='color:blue'>"+_user+privateMethod()+"</p>");
+		};
+	}
+	var obj = new Object();
+	obj.get();
+	
+	
+	
+	(function(){
+		if (typeof Ext === 'undefined'){
+			this.Ext = {name:"lucy",age:24};
+		}
+		Ext.addres = "shanghai";
+		var enumerables =[];
+		if (enumerables){
+			enumerables = ["hasOwnProperty", "valueOf", "isPrototypeOf", "propertyIsEnumerable",
+                       "toLocaleString", "toString", "constructor"];
+		}
+		Ext.enumerables = enumerables;
+		Ext.apply = function(object, config){
+			if (object && config && typeof config === "object"){
+				var j, k;
+				for (var i in config){
+					object[i] = config[i];//把需要混合的属性和方法加进去
+					/*
+					 *object.say = function(){alert("hello world");}
+					 *object.sex = male
+					 */
+				}
+				if (enumerables){
+					for (j = enumerables.length; j--;){
+						k = enumerables[j];
+						if (config.hasOwnProperty(k)){//如果config实例包含enumerables中的属性或方法
+							object[k] = config[k];
+						}
+					}
+				}
+			}
+			return object;
+		};
+		Ext.apply(Ext,{say:function(){alert("hello world");},sex:"male"});
+	})();
+	alert(Ext.addres);
+	Ext.say();
+	alert(Ext.constructor ==Object);
+	alert(Ext.hasOwnProperty("say"));
+	/**
+	 * 所谓回调函数，就是在函数定义时，只定义形式参数，
+ 	 * 不定义其具体实现，而在函数被调用时才进行函数的具体实现
+	 */
+	function HibernateTemplate()   
+	{   
+    	var self=this;   
+    	this.save=function(vo)   
+  		{
+    		self.executeWithNativeSession(function(session){session.save(vo);});
+  		};
+	};   
+	HibernateTemplate.prototype.executeWithNativeSession=function(callback)   
+	{   
+		var session ={
+				beginTransaction:function(){
+					alert("回调前做些东西");
+				},
+				getTransaction:function(){
+					alert("回调后做些东西");
+				},
+				save:function(vo){
+					alert("正在保存："+vo);
+				}
+		};
+	    
+	    session.beginTransaction();   
+	    
+	    callback(session);   
+	    
+	    session.getTransaction();   
+	};  
+	new HibernateTemplate().save("对象");   
+	
+	//////////////////////////////////////////////////////////////////
+	function a(callback)
+	{
+		alert("我是parent函数a！"); 
+		alert("调用回调函数"); 
+		callback(); 
+		alert("调用结束"); 
+	}
+	function b()
+	{
+		alert("我是回调函数b"); 
+	}
+	function c()
+	{
+		alert("我是回调函数c"); 
+	}
+	function test()
+	{
+		a(b);
+		a(c);
+		a(function(){
+			alert("我是回调函数d"); 
+		});
+	}
+	///////////////////////////////////////////////////////////
+	/* function a(callback)
+	{
+		alert("我是parent函数a！"); 
+		alert("调用回调函数"); 
+		callback.invok(); 
+		alert("调用结束"); 
+	}
+	function obj()
+	{
+		this.invok = null;
+	}
+	var b = new obj();
+	b.invok = function()
+	{
+		alert("我是回调函数b");
+	};
+	var c = new obj();
+	c.invok = function()
+	{
+		alert("我是回调函数c");
+	};
+	function test()
+	{
+		a(b);
+		a(c);
+		a({invok:function(){alert("我是回调函数d");},num:1});
+		a({invok:function(){alert("我是回调函数e");},num:1});
+	} */
+	
+	function XmlHttpRequest()
+	{
+		//.....
+		this.readyState = null;
+		this.status = null;
+		this.onreadystatechange = null;
+		//.....
+	}
+	function ajax()
+	{
+		var xhr = new XmlHttpRequest();
+		xhr.onreadystatechange = function()
+		{
+			//.....
+		};
+	}
+	//0 (未初始化) 对象已建立，但是尚未初始化（尚未调用open方法） 
+	//1 (初始化) 对象已建立，尚未调用send方法 
+	//2 (发送数据) send方法已调用，但是当前的状态及http头未知 
+	//3 (数据传送中) 已接收部分数据，因为响应及http头不全，这时通过responseBody和responseText获取部分数据会出现错误 
+	//4 (完成) 数据接收完毕,此时可以通过通过responseBody和responseText获取完整的回应数据 
+	
+	//模拟浏览器执行
+	(function(){
+		//监听器，每当readyState改变时 都去执行onreadystatechange
+		//onreadystatechange();
+		//赋返回值， 当readyState为 4 给responseText赋值
+	})();
+	
+	///////////////////////////////////////////////////////////////////////
+	/* function a()
+	{
+		alert("我是parent函数a！"); 
+		alert("调用回调函数"); 
+		b(); 
+		alert("调用结束"); 
+	}
+	function b()
+	{
+		alert("我是回调函数b"); 
+	}
+	function test()
+	{
+		a();
+	} */
+	var Calculator = function (eq) {
+	    //这里可以声明私有成员
+	    var _eqCtl = document.getElementById(eq);
+	    return {
+	        // 暴露公开的成员
+	        add: function (x, y) {
+	            var val = x + y;
+	            _eqCtl.innerHTML = val;
+	        }
+	    };
+	};
+	//var calculator = new Calculator('eq');
+	//calculator.add(2, 2);
+	var blogModule = (function () {
+	    var _my = {}, _privateName = "dream";
+	    function privateAddTopic(data) {
+	        // 这里是内部处理代码
+	    }
+	    _my.Name = _privateName;
+	    _my.AddTopic = function (data) {
+	        privateAddTopic(data);
+	    };
+	    return _my;
+	} ());
+	
+	var blogModule = (function (my) {
+	    my.AddPhoto = function () {
+	        //添加内部代码  
+	    };
+	    return my;
+	} (blogModule||{}));
+</script>
+	
+  </head>
+  
+  <body>
+  <div style="height:100px;width:500px;border:1px solid red;margin:10px auto"></div>
+  </body>
+</html>

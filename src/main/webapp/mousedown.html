@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>study event bind</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <script type="text/javascript" src="js/jquery-1.5.2.js"></script>
+    <script type="text/javascript">
+    $(function(){
+    	$(document).bind("contextmenu",function(){return false;});  
+    	$(document).mousedown(function(event){
+    		if(event.which ==3){
+    			event.preventDefault();
+    			$("div").show();
+    			$("div").css("left",event.pageX).css("top",event.pageY);
+    		}
+    	}).click(function(){
+    		$("div").hide();
+    	});
+    });
+    </script>
+    <style type="text/css">
+    * {
+		margin:0;
+		padding:0;
+	}
+    ul, li
+    {
+    	list-style: none;
+    }
+    div
+    {
+    	position: absolute;
+    	background-color: #999;
+    	height:75px;
+    	witdh:20px;
+    	padding:0;
+    	display:none;
+    }
+    ul
+    {
+    	margin:0 auto;
+    }
+    li
+    {
+    	height:25px;
+		line-height:25px;
+		letter-spacing:1px;
+    }
+    </style>
+
+  </head>
+  
+  <body>
+    <div>
+    	<ul>
+    		<li>复制</li>
+    		<li>剪切</li>
+    		<li>粘结</li>
+    	</ul>
+    </div>
+  </body>
+</html>

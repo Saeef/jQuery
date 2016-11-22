@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>study prototype</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <script type="text/javascript">
+    //原型
+	function Box() {}			//构造函数函数体内什么都没有，这里如果有，叫做实例属性，实例方法
+	Box.prototype.name = 'Lee';				//原型属性
+	Box.prototype.age = 100;					//原型属性
+	Box.prototype.run = function () {		//原型方法
+		return this.name + this.age + '运行中...';
+	};
+	var box = new Box();var box2 = new Box();
+	document.write("<p style='color:blue'>"+box.run()==box2.run()+"</p>");
+	//alert(box.prototype);			//使用对象实例无法访问到prototype
+	document.write("<p style='color:blue'>"+box.__proto__+"</p>");			//使用【对象实例】访问prototype的指针     __proto__属性是实例指向原型对象的一个指针 它的作用就是指向构造函数的原型属性constructor
+	document.write("<p style='color:blue'>"+Box.prototype+"</p>");			//使用【构造函数名】(对象名)访问prototype
+	document.write("<p style='color:blue'>"+box.constructor+"</p>");	
+	document.write("<p style='color:blue'>"+box.constructor == Box+"</p>");	
+	
+	
+	function Desk() {}
+	//使用字面量的方式创建原型对象，这里{}就是对象，是Object，new Object就相当于{}
+	Desk.prototype = {
+		constructor : Desk,			//强制指向Box
+		name : 'Lee', 
+		age : 100,
+		run : function () {
+			return this.name + this.age + '运行中...';
+		}
+	};
+	var desk = new Desk();
+	document.write("<p style='color:red'>"+desk.__proto__+"</p>");				//使用【对象实例】访问prototype的指针
+	document.write("<p style='color:red'>"+Desk.prototype+"</p>");			//使用【构造函数名】(对象名)访问prototype
+	document.write("<p style='color:red'>"+desk.constructor == Desk+"</p>");	
+
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

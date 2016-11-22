@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>singleton.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    var Singleton = (function () {
+	    var instantiated = undefined;
+	    function init() {
+	        //这里定义单例代码
+	        return {
+	            		publicMethod: function () {
+	                		document.write("<p style='color:orange'>"+Math.PI+"</p>");
+	            		},
+	            		publicProperty: 'test'
+	        };
+	    }
+	    return {
+	        getInstance: function () {
+	            if (!instantiated) {
+	                instantiated = init();
+	            }
+	            return instantiated;
+	        }
+	    };
+	})();
+	Singleton.getInstance().publicMethod(); 
+	
+	
+	var SingletonTester = (function () {
+	    //参数：传递给单例的一个参数集合
+	    function Singleton(args) {
+	        //设置args变量为接收的参数或者为空（如果没有提供的话）
+	        var args = args || {};
+	        //设置name参数
+	        this.name = 'SingletonTester';
+	        //设置pointX的值
+	        this.pointX = args.pointX || 6; //从接收的参数里获取，或者设置为默认值
+	        //设置pointY的值
+	        this.pointY = args.pointY || 10;
+	    }
+	    //实例容器
+	    var instance = undefined;
+	    return {
+	        name: 'SingletonTester',
+	        //获取实例的方法
+	        //返回Singleton的实例
+	        getInstance: function (args) {
+	            if (instance === undefined) {
+	                instance = new Singleton(args);
+	            }
+	            return instance;
+	        }
+	    };
+	})();
+	document.write("<p style='color:red'>"+SingletonTester.name+"</p>");
+	var singletonTest = SingletonTester.getInstance({ pointX: 5 });
+	document.write("<p style='color:red'>"+singletonTest.name+"</p>");
+	document.write("<p style='color:red'>"+singletonTest.pointX+"</p>");
+	document.write("<p style='color:red'>"+singletonTest.pointY+"</p>"); 
+	
+	//方法1：
+	function Universe1() {
+	    // 判断是否存在实例
+	    if (typeof Universe1.instance === 'object') {
+	        return Universe1.instance;
+	    }
+	    // 其它内容
+	    this.start_time = 0;
+	    this.bang = "Big";
+	    // 缓存
+	    Universe1.instance = this;
+	    // 隐式返回this
+	}
+	// 测试
+	var uni11 = new Universe1();
+	var uni12 = new Universe1();
+	document.write("<p style='color:orange'>方法1："+(uni11 === uni12)+"</p>");// true
+	
+	//方法2：
+	function Universe2() {
+	    // 缓存的实例
+	    var instance = this;
+	    // 其它内容
+	    this.start_time = 0;
+	    this.bang = "Big";
+	    // 重写构造函数
+	    Universe2 = function () {
+	        return instance;
+	    };
+	}
+	// 测试
+	var uni21 = new Universe2();
+	var uni22 = new Universe2();
+	uni21.bang = "123";
+	document.write("<p style='color:red'>方法2："+(uni21 === uni22)+"</p>");// true
+	document.write("<p style='color:red'>方法2："+uni21.bang+"</p>");// true 
+	
+	//方法3：
+	function Universe3() {
+	    // 缓存实例
+	    var instance = undefined;
+	    // 重新构造函数
+	    Universe3 = function Universe3() {
+	        return instance;
+	    };
+	    // 后期处理原型属性
+	    Universe3.prototype = this;
+	    // 实例
+	    instance = new Universe3();
+	    // 重设构造函数指针
+	    instance.constructor = Universe3;
+	    // 其它功能
+	    instance.start_time = 0;
+	    instance.bang = "Big";
+	    return instance;
+	}
+	// 测试
+	var uni31 = new Universe3();
+	var uni32 = new Universe3();
+	document.write("<p style='color:blue'>方法3："+(uni31===uni32)+"</p>");// true
+	// 添加原型属性
+	Universe3.prototype.nothing = true;
+	var uni31 = new Universe3();
+	Universe3.prototype.everthing = false;
+	var uni32 = new Universe3();
+	document.write("<p style='color:blue'>方法3："+uni31.nothing+"</p>");// true
+	document.write("<p style='color:blue'>方法3："+uni32.nothing+"</p>");// true
+	document.write("<p style='color:blue'>方法3："+uni31.everthing+"</p>");// true
+	document.write("<p style='color:blue'>方法3："+uni32.everthing+"</p>");// true
+	document.write("<p style='color:blue'>方法3："+(uni31.constructor === Universe3)+"</p>");// true 
+	
+	//方法4：
+	(function () {
+	    var instance = undefined;
+	    Universe4 = function Universe4() {
+	        if (instance) {
+	            return instance;
+	        }
+	        instance = this;
+	        // 其它内容
+	        this.start_time = 0;
+	        this.bang = "Big";
+	    };
+	} ());
+	//测试代码
+	var uni41 = new Universe4();
+	var uni42 = new Universe4();
+	document.write("<p style='color:brown'>方法4："+(uni41 === uni42)+"</p>");// true
+	uni41.bang = "123";
+	document.write("<p style='color:brown'>方法4："+uni41.bang+"</p>");// 123
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

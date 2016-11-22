@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    
+    <title>My JSP 'option.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="../css/dialog.css">
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.3.2/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.3.2/themes/default/easyui.css">
+	<style type="text/css">
+		table.table-report{
+			margin:0 auto;/*自适应其实就是居中*/
+			border-collapse:collapse;
+			width:100%;
+			border-spacing:0;
+		}
+		table.table-report th{
+			font-size:12px;
+			border-top:1px solid #000;
+			border-bottom:1px solid #000;
+			background:#EEE;
+			text-align:center;
+			height:30px;
+		}
+		table.table-report td{
+			height:30px;
+			border-bottom:1px solid #E2E2E2;
+			line-height:20px;
+			text-align:center;
+		}
+		.even{
+			background:#EEF6FF;
+		}
+		.odd{
+			background:#FFFFFF;
+		}
+		.selected{
+			background:#FBEC88;
+		}
+		table.table-report tr td a.operate
+		{
+			display:none;
+		}
+	</style>
+	<script type="text/javascript" src="../js/jquery-2.1.0.js"></script>
+	<script type="text/javascript" src="../js/index.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		//*************************************表格样式制定******************************//
+		$("tbody>tr:odd").addClass("odd");
+		$("tbody>tr:even").addClass("even");
+		
+		$("tbody>tr").click(function(){
+			/* if($(this).hasClass("selected"))
+			{
+				$(this).removeClass("selected").find(":checkbox").attr("checked",false);
+			}
+			else
+			{
+				$(this).addClass("selected").find(":checkbox").attr("checked",true);
+			} */
+			//等价
+			var hasSelected = $(this).hasClass("selected");
+			$(this)[hasSelected?"removeClass":"addClass"]("selected")
+				.find(":checkbox").attr("checked",!hasSelected);
+		});
+		
+		//全选
+		$("#checkAll").click(function(){
+			$("[name=check]:checkbox").attr("checked",this.checked);
+			$("tbody>tr")[this.checked?"addClass":"removeClass"]("selected");
+			$("table.table-report tr td a.operate")[this.checked?"show":"hide"]();
+		});
+		//加载时就处理选中的行
+		$("tbody>tr:has(:checked)").addClass("selected");
+		
+		//滑动换色
+		$("tbody>tr").hover(function(){
+			var $checked = $(this).find(":checkbox");
+			//如果没有被选中采用滑动样式
+			if(!$checked.attr("checked")) 
+			{
+				$(this).addClass("selected");
+				$(this).find(".operate").show();
+			} 
+		},function(){
+			var $checked = $(this).find(":checkbox");
+			//如果没有被选中采用滑动样式
+			if(!$checked.attr("checked")) 
+			{
+				$(this).removeClass("selected");
+				$(this).find(".operate").hide();
+			}
+		});
+		//
+		/**
+		 * each的使用：只有在多个组合情况下才会去使用它，例如
+		 * <ul><li></li><li></li></ul>
+		 * <ul><li></li><li></li></ul>
+		 * <ul><li></li><li></li></ul>
+		 * 如果是定位到ul，无论是添加样式或者事件，直接找到ul，不用循环
+		 * 如果是要找到每个li 也不用循环，但是它的index将是整个的
+		 * 如果要找到特定ul中特定的li ，就使用循环
+		 * 如果每个元素特定属性值不一样，也需要分别改变，而不是统一改变，也需要循环,特别是在form表单中
+		 */
+		$("table.table-report tbody>tr").each(function(){
+			/* $(this).children("td").last().click(function(){
+				alert($(this).parent().children("td").eq(1).text());
+				alert($(this).parent().children("td").eq(2).text());
+			}); */
+			$(this).children("td").last().css("width","80px");
+		});
+		
+		var arr = new Array();
+		$(":button[name=check]").click(function(){
+			$("table.table-report tbody>tr").each(function(){
+				arr.push($(this).children("td").eq(1).text());
+			});
+			alert(arr);
+		});
+		
+		//**********************************新增修改弹出框操作***************************//
+		var add = $("#add");
+		var modify = $("#modify");
+		//展现新增弹出框
+		$(" :button[name=add]").click(function(){
+			add.show().center(450,360);
+			$.lock();
+		});
+		//关闭新增弹出框
+		$("#add .close").click(function () 
+		{
+			add.hide();
+			$.unlock();
+		});
+		//展现修改弹出框
+		$("table.table-report tr td a.modify").click(function(){
+			modify.show().center(450,360);
+			$("#modify :input[name=id]").val($(this).parent().siblings().eq(0).text());
+			$("#modify div.form :input[name=username]").val($(this).parent().siblings().eq(2).text());
+			$("#modify div.form :input[name=password]").val($(this).parent().siblings().eq(3).text());
+			var option = $(this).parent().siblings().eq(4).text();
+			$("#modify div.form :input[name=nativePlace] option[value="+option+"]").attr("selected",true);
+			$("#modify div.form :input[name=salary]").val($(this).parent().siblings().eq(5).text());
+			var v = $(this).parent().siblings().eq(6).text();
+			var arr = v.split(",");
+			$("#modify div.form :checkbox[name=hobby]").each(function(){
+				$(this).attr("checked",false);
+			});
+			$.each(arr,function(i,n){
+				$("#modify div.form :checkbox[name=hobby][value="+n+"]").attr("checked",true);
+			});
+			var radio = $(this).parent().siblings().eq(7).text();
+			$("#modify div.form :radio[name=sex][value="+radio+"]").attr("checked",true);
+			$.lock();
+		});
+		//关闭修改弹出框
+		$("#modify .close").click(function () 
+		{
+			modify.hide();
+			$.unlock();
+		});
+		add.drag();//拖拽
+		modify.drag();//拖拽
+		//对浏览器窗口调整大小
+		$(window).resize(function () {
+			$.resize(add);
+			if (add.css('display') == 'block') //遮罩层布满页面
+			{
+				$.lock();
+			}
+		});
+		$(window).resize(function () {
+			$.resize(modify);
+			if (modify.css('display') == 'block') //遮罩层布满页面
+			{
+				$.lock();
+			}
+		});
+		//新增弹出框的校验
+		$("#add :input,#modify :input").blur(function(){
+			var $parent = $(this).parent();
+			$parent.children(".msg").remove();
+			if($(this).hasClass("text"))
+			{
+				if(this.value=="")
+				{
+					$parent.append("<img class='msg error' src='../images/error.png'/><span class='msg' style='position:relative;left:20px;top:-4px;color:red;letter-spacing:2px;font-size:12px;'>不能为空</span>");
+				}
+				else
+				{
+					$parent.append("<img class='msg suses' src='../images/right.png'/>");
+					if($(this).hasClass("number")&&!/^([1-9]\d{0,}|0)$/.test(this.value))
+					{
+						$parent.children(".msg").remove();
+						$parent.append("<img class='msg error' src='../images/error.png'/><span class='msg' style='position:relative;left:20px;top:-4px;color:red;letter-spacing:2px;font-size:12px;'>只能输入数字</span>");
+					}
+				}
+			}
+		}).keyup(function(){
+			$(this).triggerHandler("blur");
+		}).focus(function(){
+			$(this).triggerHandler("blur");
+		});
+	
+		$("#add :submit").click(function(){
+			$("#add .text:input").trigger("blur");
+			var numError = $("#add .error").length;
+			if(numError)
+			{
+				return false;
+			}
+			$("#add :submit").get(0).submit();
+		});
+		$("#modify :submit").click(function(){
+			$("#modify .text:input").trigger("blur");
+			var numError = $("#modify .error").length;
+			if(numError)
+			{
+				return false;
+			}
+			$("#modify :submit").get(0).submit();
+		});
+		//删除
+		$("table.table-report tr td a.delete").click(function () 
+		{
+			var id = $(this).parent().siblings().eq(1).text();
+			$.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) 
+			{
+			    if (data) 
+			    {
+			        document.location.href = "#?id="+id;
+			     }
+			});
+		});
+		//阻止输入非数字
+		$("#add div.form :input[name=salary]").preventNumeric();
+		$("#modify div.form :input[name=salary]").preventNumeric();
+	});
+	</script>
+  </head>
+  
+  <body>
+  	<input type="button"  name="check" value="获取全部id"/>
+  	<input type="button"  name ="add" value="新增"/>
+  	<table class="table-report">
+  		<thead>
+  			<tr>
+  				<th><input type="checkbox" id="checkAll" ></th>
+  				<th>ID</th><th>用户名</th><th>密码</th><th>籍贯</th><th>月薪</th><th>爱好</th><th>性别</th><th>  </th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>1</td><td>aa1</td><td>bb1</td><td>1</td><td>1000</td><td>1,2</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  			<td><input type="checkbox" name="check" ></td>
+  				<td>2</td><td>aa2</td><td>bb2</td><td>2</td><td>1000</td><td>1,2,3</td><td>2</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>3</td><td>aa3</td><td>bb3</td><td>3</td><td>1000</td><td>1</td><td>2</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>4</td><td>aa4</td><td>bb4</td><td>4</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>5</td><td>aa5</td><td>bb5</td><td>5</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>6</td><td>aa66</td><td>bb6</td><td>6</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>7</td><td>aa7</td><td>bb7</td><td>7</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>8</td><td>aa8</td><td>bb8</td><td>8</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>9</td><td>aa9</td><td>bb9</td><td>9</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check" ></td>
+  				<td>10</td><td>aa10</td><td>bb10</td><td>10</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>11</td><td>aa11</td><td>bb11</td><td>11</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>12</td><td>aa10</td><td>bb12</td><td>12</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>13</td><td>aa13</td><td>bb13</td><td>13</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>14</td><td>aa14</td><td>bb14</td><td>14</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>15</td><td>aa15</td><td>bb15</td><td>15</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>16</td><td>aa16</td><td>bb16</td><td>16</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>17</td><td>aa17</td><td>bb17</td><td>17</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>18</td><td>aa18</td><td>bb18</td><td>18</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>19</td><td>aa19</td><td>bb19</td><td>19</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td><input type="checkbox" name="check"  ></td>
+  				<td>20</td><td>aa20</td><td>bb20</td><td>20</td><td>1000</td><td>1,2,3,4</td><td>1</td>
+  				<td>
+	  				<a class="modify operate"  style="text-decoration:none;cursor:pointer;"><img src="../images/edit.gif"  title="编辑"/> </a>
+	  				<a class="delete operate"   style="text-decoration:none;cursor:pointer;"><img src="../images/del.gif"  title="删除"/> </a>
+  				</td>
+  			</tr>
+  		</tbody>
+  	</table>
+  	<div id="add">
+		<h2><img src="../images/close.gif" alt="" class="close" />新增</h2>
+		<form action="#" method="post">
+			<div class="form">用户名：<div class="right"><input type="text" name="username" class="text" /></div></div>
+			<div class="form">密码：<div class="right"><input type="password" name="password" class="text" /></div></div>
+			<div class="form">籍贯：<div class="right">
+														<select name="nativePlace" >
+															  <option value ="1">北京</option>
+															  <option value ="2">上海</option>
+															  <option value="3">天津</option>
+															  <option value="4">重庆</option>
+														</select></div>
+			</div>
+			<div class="form">月薪：<div class="right"><input type="text" name="salary" class="text number" /></div></div>
+			<div class="form">爱好：<div class="right">
+													<input type="checkbox" name="hobby" value="1">足球
+											    	<input type="checkbox" name="hobby" value="2">篮球
+											    	<input type="checkbox" name="hobby" value="3">羽毛球
+											    	<input type="checkbox" name="hobby" value="4">兵乓球
+													</div>
+				</div>
+				<div class="form">性别：<div class="right">
+													<input type="radio" name="sex" value="1">男
+											    	<input type="radio" name="sex" value="2">女
+													</div>
+				</div>
+			<div class="button"><input type="submit" class="submit" value="提交" /></div>
+		</form>
+	</div>
+	<div id="modify">
+			<h2><img src="../images/close.gif" alt="" class="close" />修改</h2>
+			<form action="#" method="post">
+				<input type="hidden" name="id" />
+				<div class="form">用户名：<div class="right"><input type="text" name="username" class="text" /></div></div>
+				<div class="form">密码：<div class="right"><input type="password" name="password" class="text" /></div></div>
+				<div class="form">籍贯：<div class="right">
+														<select name="nativePlace" >
+															  <option value ="1">北京</option>
+															  <option value ="2">上海</option>
+															  <option value="3">天津</option>
+															  <option value="4">重庆</option>
+														</select></div>
+				</div>
+				<div class="form">月薪：<div class="right"><input type="text" name="salary" class="text number" /></div></div>
+				
+				<div class="form">爱好：<div class="right">
+													<input type="checkbox" name="hobby" value="1">足球
+											    	<input type="checkbox" name="hobby" value="2">篮球
+											    	<input type="checkbox" name="hobby" value="3">羽毛球
+											    	<input type="checkbox" name="hobby" value="4">兵乓球
+													</div>
+				</div>
+				<div class="form">性别：<div class="right">
+													<input type="radio" name="sex" value="1">男
+											    	<input type="radio" name="sex" value="2">女
+													</div>
+				</div>
+				<div class="button"><input type="submit" class="submit" value="提交" /></div>
+			</form>
+	</div>
+  </body>
+</html>

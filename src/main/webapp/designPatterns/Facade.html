@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>facade.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript">
+    var addMyEvent = function (el, ev, fn) {
+	    if (el.addEventListener) {
+	        el.addEventListener(ev, fn, false);
+	    } else if (el.attachEvent) {
+	        el.attachEvent('on' + ev, fn);
+	    } else {
+	        el['on' + ev] = fn;
+	    }
+	}; 
+	
+	var mobileEvent = {
+	    // ...
+	    stop: function (e) {
+	        e.preventDefault();
+	        e.stopPropagation();
+	    }
+	    // ...
+	};
+    </script>
+
+  </head>
+  
+  <body>
+  </body>
+</html>

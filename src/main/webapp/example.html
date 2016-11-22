@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>example.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		.main {
+			position: relative;
+			margin:0 auto;
+			width:1000px;
+			height:1000px;
+			border:1px solid red;
+		}
+		
+		dl,dd {
+			padding: 0;
+			margin: 0;
+		}
+		
+		dl.show {
+			width: 450px;
+			/* height: 350px; */
+			margin: 10px 0px 10px 20px;
+			float: left;
+			font-size: 14px;
+			color: #666;
+		}
+		
+		dl.show dd {
+			position: relative;
+			height: 30px;
+			padding: 2px 0;
+			margin-top: 5px;
+		}
+		
+		dl.show dd.dd1 {
+			margin-top: 30px;
+		}
+		
+		dl.show dd.dd2 {
+			margin-top: 68px;
+		}
+		
+		dl.show dd div.pos {
+			position: absolute;
+			left: 120px;
+			top:0px;
+		}
+		
+		input.text {
+			width: 30px;
+		}
+		label.error {    
+			color: red;    
+			position: absolute;
+			left: 300px;  
+		}   
+		div.button {
+			position: absolute;
+			top:650px;
+			left:300px;
+		}
+		div.button .submit
+		{
+			margin:0 auto;
+		}
+	</style>   
+
+</head>
+
+<body>
+	<div class="main">
+		<dl id="dl1" class="show">
+			<dd>管理员用户名:<div class="pos"><input name="MName" type="text"  id="name" /></div></dd>
+			<dd>最近登录IP:<div class="pos"><input type="text"  name="MLoginip"/></div></dd>
+			<dd class="dd1">用户姓名:<div class="pos"><input type="text" name="name"  /></div></dd>
+			<dd>出生年月:<div class="pos"><input type="text"  name="birthday" /></div></dd>
+			<dd>联系方式1:<div class="pos"><input type="text"  name="telephone1" /></div></dd>
+			<dd class="dd1">组织名称:<div class="pos"><input type="text" name="OName"  /></div></dd>
+			<dd>组织联系地址:<div class="pos"><input type="text"  name="OAddress" /></div></dd>
+		</dl>
+		
+		<dl id="dl2" class="show">
+			<dd>上级管理员:<div class="pos"><input type="text" name="MName"  /></div></dd> 
+			<dd>登录次数:<div class="pos"><input type="text"  name="MLogincount"/> </div></dd>
+			<dd class="dd1">
+					用户性别: <div class="pos"><input type="radio" name="sex" value="male" checked="checked" />男 
+															<input type="radio" name="sex" value="female"  />女 </div>
+				</dd>
+			<dd>政治背景:<div class="pos"><input type="text"  name="political" /></div></dd>
+			<dd>联系方式2:<div class="pos"><input type="text"  name="telephone2" /></div></dd>
+			<dd class="dd1">组织联系人:<div class="pos"><input type="text"  name="OContact"readonly="readonly"></div> </dd>
+			<dd>组织备注:<div class="pos"><input type="text"  name="remark"/></div></dd>
+		</dl>
+		
+		<dl id="dl3" class="show">
+			<dd>创建时间:<div class="pos"><input type="text"  name="MCreattime"/> </div></dd>
+			<dd>管理员备注:<div class="pos"><input type="text"  name="remark"/></div></dd>
+			<dd class="dd1">用户年龄:<div class="pos"><input type="text"  name="age" /> </div></dd>
+			<dd>联系地址:<div class="pos"><input type="text"  name="address" /></div></dd>
+			<dd>邮箱地址:<div class="pos"><input type="text"  name="email" id="email"/> </div></dd>
+			<dd class="dd1">组织联系方式1:<div class="pos"><input type="text"  name="OTelephone1" /></div></dd>
+		</dl>
+		
+		<dl id="dl4" class="show">
+			<dd>最近登录时间:<div class="pos"><input type="text"  name="MLogintime"/></div></dd>
+			<dd class="dd2">用户身份证号:<div class="pos"><input type="text"  name="card" /> </div></dd>
+			<dd>用户QQ:<div class="pos"><input type="text"  name="qqaccount" /></div></dd>
+			<dd>用户备注:<div class="pos"><input type="text"  name="remark" /> </div></dd>
+			<dd class="dd1">组织联系方式2:<div class="pos"><input type="text"  name="OTelephome2" /></div></dd>
+		</dl>
+		<div class="button"><input type="submit" class="submit" value="提交" /></div>
+	</div>
+
+</body>
+</html>
