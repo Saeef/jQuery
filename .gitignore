@@ -11,3 +11,4 @@
 */.idea/
 *.jar
 /target/
+/bin/
